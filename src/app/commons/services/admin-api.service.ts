@@ -9,9 +9,9 @@ export class AdminApiService {
   email = signal('');
   date = signal(format(new Date(), "MM/dd/yyyy"));
 
-  fetchAppointmentsByEmailResource = httpResource<UserDetailsApiResponse>(() => this.email() ? `http://localhost:3000/api/searchByEmail?email=${this.email()}`: undefined);
+  fetchAppointmentsByEmailResource = httpResource<UserDetailsApiResponse>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
 
-  fetchAppointmentsByDateResource = httpResource<UserDetailsByAppointmentDate>(() => this.date() ? `http://localhost:3000/api/searchAppointmentsByDate?date=${this.date()}`: undefined);
+  fetchAppointmentsByDateResource = httpResource<UserDetailsByAppointmentDate>(() => this.date() ? `searchAppointmentsByDate?date=${this.date()}`: undefined);
 }
 
 
