@@ -1,0 +1,138 @@
+<div class="card card-shadow">
+  <div class="card-header">
+    <h4 class="test-clip">
+      Schedule Appointmment
+    </h4>
+  </div>
+  <div class="card-body">
+    @if (scheduleAppointmentError()) {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{scheduleAppointmentError()}}</strong>
+        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    }
+    <div class="container mt-4">
+      <form [formGroup]="appointmentForm">
+        <div class="row">
+          <!-- First Name -->
+
+          <div class="col-12 col-md-6 mb-3">
+            @let firstNameControl = appointmentForm.get('firstName');
+            @let firstNameValidity = firstNameControl.touched && firstNameControl.invalid &&
+            firstNameControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="text" class="form-control apt-form-control" id="firstName" formControlName="firstName"
+                placeholder="First Name">
+              <label [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName">First Name *</label>
+            </div>
+
+            @if (firstNameValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-12 col-md-6 mb-3">
+            @let lastNameControl = appointmentForm.get('lastName');
+            @let lastNameValidity = lastNameControl.touched && lastNameControl.invalid &&
+            lastNameControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="text" class="form-control apt-form-control" id="lastName" formControlName="lastName" placeholder="Last Name">
+              <label [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
+            </div>
+
+            @if (lastNameValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Email -->
+          <div class="col-12 col-md-6 mb-3">
+            @let emailControl = appointmentForm.get('email');
+            @let emailValidity = emailControl.touched && emailControl.invalid && emailControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="email" class="form-control apt-form-control" id="email" formControlName="email" placeholder="Email">
+              <label [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
+            </div>
+
+            @if (emailValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Phone Number -->
+          <div class="col-12 col-md-6 mb-3">
+            @let phoneControl = appointmentForm.get('phoneNumber');
+            @let phoneValidity = phoneControl.touched && phoneControl.invalid && phoneControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="tel" class="form-control apt-form-control" id="phone" formControlName="phoneNumber" placeholder="Phone">
+              <label [ngClass]="{ 'invalid-label': phoneValidity }" for="phone">Phone *</label>
+            </div>
+
+            @if (phoneValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Appointment Group: Date -->
+          <div formGroupName="appointment" class="row">
+            <div class="col-12 col-md-6 mb-3">
+              @let dateControl = appointmentForm.get('appointment.date');
+              @let dateValidity = dateControl.touched && dateControl.invalid && dateControl.hasError('required');
+              <div class="form-floating">
+
+                <input (keydown)="preventTyping($event)" [min]="minDate" type="date" class="form-control apt-form-control" id="date"
+                  formControlName="date">
+                <label [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
+                  *</label>
+              </div>
+              @if (dateValidity) {
+              <div class="apt-validation">This is a required field</div>
+              }
+            </div>
+
+            <!-- Appointment Group: Time -->
+            <div class="col-12 col-md-12 mb-3">
+
+              @let timeControl = appointmentForm.get('appointment.time');
+              @let timeControlValidity = timeControl.touched && timeControl.invalid && timeControl.hasError('required');
+              <label [ngClass]="{'invalid-label': timeControlValidity}" for="time" class="form-label test-clip">Appointment Time
+                *</label>
+              @if (timeControlValidity) {
+              <div class="apt-validation">This is a required field</div>
+              }
+              <app-time-picker [bookedSlots]="engagedSlotsList()" (selectedTimeEmitter)="selectedTime($event)"
+                (touchedEmitter)="touchedEvent()" />
+            </div>
+          </div>
+          <!-- Message (optional field not defined in form group) -->
+          <!-- <div class="col-12 mb-3">
+            @let messageControl = appointmentForm.get('note');
+            @let messageValidity = messageControl.touched && messageControl.invalid &&
+            messageControl.hasError('required');
+            <label [ngClass]="{'invalid-label': messageValidity}" for="note" class="form-label">Notes *</label>
+            <textarea class="form-control" id="note" formControlName="note" rows="3"></textarea>
+            @if (messageValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div> -->
+
+
+          <!-- Submit Button -->
+          <div class="col-12 text-end">
+            <button class="btn btn-primary rounded-pill px-4 shadow-sm"
+              (click)="scheduleAppointment()"> {{ scheduleApointmentApiProgress() ? 'Scheduling...' : 'Schedule'}}</button>
+            <button class="btn btn-outline-warning rounded-pill px-4 ms-2">Cancel</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

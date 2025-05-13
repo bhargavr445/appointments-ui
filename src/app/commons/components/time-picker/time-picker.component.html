@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <div class="row">
+        @for (item of availableSlots(); track $index) {
+        <div class="col-6 col-md-4 col-lg-3 mb-3" [ngClass]="{ 'cp': item.isAvailable, 'no-cursor': !item.isAvailable}">
+            <div class="card text-center shadow-sm time-card" [ngClass]="{ 'selected-border': item.isSelected}">
+                <a (click)=" item.isAvailable ? selectSlot(item) : ''" class="text-decoration-none" (mouseleave)="elementTouched()">
+                    <div class="card-body pad-4">
+                        <h6 class="card-title fw-bold mb-1" [ngClass]="{'muted-text': !item.isAvailable, 'available-text-label': item.isAvailable}">
+                            {{ item.label }}
+                        </h6>
+                        <p class="card-text small mb-0" [ngClass]="{
+                    'available-text': item.isAvailable,
+                    'unavailable-text': !item.isAvailable
+                  }">
+                            {{ item.isAvailable ? 'Available' : 'Unavailable' }}
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>
