@@ -1,0 +1,60 @@
+<div class="card card-shadow">
+    <div class="card-header">
+        <h4 class="test-clip">Search By Date</h4>
+    </div>
+    <div class="card-body">
+        <form> <!-- optional wrapper -->
+            <div class="row align-items-end">
+                <!-- Email Input -->
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input (keydown)="preventTyping($event)" type="date" class="form-control apt-form-control"
+                            id="date" [formControl]="date">
+                        <label for="date">Date</label>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="col-12 col-md-3 mb-3 text-md-start text-end">
+                    <button class="btn btn-primary rounded-pill shadow-sm w-md-auto" type="submit"
+                        (click)="searchByDate()">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@for (item of userDetailsList(); track item.email) {
+<div class="card card-shadow shadow-sm mb-3 mt-3 card-expand">
+    <div class="card-header bg-light">
+        <h6 class="mb-0">{{item?.firstName }} {{item?.lastName }}</h6>
+        <small class="text-muted">{{item?.email }} | {{item?.phoneNumber }}</small>
+    </div>
+    <div class="card-body border">
+        <div class="row mb-2">
+            <div class="col-6">
+                <strong>Date:</strong> {{item.appointments.date}}
+            </div>
+            <div class="col-6">
+                <strong>Time: </strong> <app-schedule-timer [time]="item.appointments.time" />
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-6">
+                <strong>Status:</strong>
+                <span class="badge bg-success">{{item.appointments.status}}</span>
+            </div>
+        </div>
+
+        <div>
+            <strong>Notes:</strong>
+            <p class="mb-0">Follow-up visit regarding test results.</p>
+        </div>
+    </div>
+
+</div>
+
+}
