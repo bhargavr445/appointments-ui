@@ -29,6 +29,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
@@ -103,6 +108,17 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://bhargavr445.github.io/appointments-ui/"
+          },
+          "configurations": {
+            "production": {
+              "baseHref": "https://bhargavr445.github.io/appointments-ui/"
+            }
           }
         }
       }

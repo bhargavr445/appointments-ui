@@ -1,0 +1,14 @@
+
+
+[
+    {
+        "code": "APT",
+        "description": "Apartment",
+        "order": 1
+    },
+    {
+        "code": "JNK",
+        "description": "Junk",
+        "order": 2
+    }
+]

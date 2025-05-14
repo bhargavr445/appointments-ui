@@ -57,4 +57,10 @@
 
 </div>
 
+} @empty {
+    @if(!userDetailsListLoading()) {
+        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+            <strong>No Appointments for the selected date.</strong>
+          </div>
+    }
 }

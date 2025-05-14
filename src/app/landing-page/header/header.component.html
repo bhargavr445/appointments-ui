@@ -1,0 +1,51 @@
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Appointments</a>
+    <a class="navbar-brand" routerLink="/info">info</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navItems"
+      aria-controls="navItems"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navItems">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/admin'" routerLinkActive="active">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<nav [class.shrink]="isShrunk" class="navbar navbar-expand-md navbar-light fixed-top shadow-sm apt-bg">
+  <div class="container-fluid d-flex justify-content-between align-items-center flex-nowrap">
+    <strong>
+      <a class="navbar-brand apt-txt-color" routerLink="/">M & J Trucks</a>
+    </strong>
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-warning text-uppercase fw-bold quote-btn" routerLink="/schedule">
+        Free Quote
+      </button>
+      <button
+        class="navbar-toggler btn btn-outline-dark d-md-none d-flex flex-column align-items-center menu-toggle-btn"
+        type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav ms-auto px-3">
+      <li class="nav-item"><a class="nav-link apt-txt-color" routerLink="/">Home</a></li>
+      <li class="nav-item"><a class="nav-link apt-txt-color" routerLink="/services">Services</a></li>
+      <li class="nav-item"><a class="nav-link apt-txt-color" routerLink="/about">About</a></li>
+      <li class="nav-item"><a class="nav-link apt-txt-color" routerLink="/contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
