@@ -1,0 +1,25 @@
+.service-card {
+    border: none;
+    background-color: #f9fbff;
+    // padding: 1rem;
+    transition: transform 0.2s ease;
+  
+    &:active {
+      transform: translateY(-4px);
+    }
+  
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+  
+    h6 {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+  
+    p {
+      font-size: 0.875rem;
+    }
+  }
