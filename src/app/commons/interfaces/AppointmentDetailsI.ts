@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { AppointmentType } from "../../schedule-appointment/schedule-appointment.component";
 
 export interface AppointmentScheduleI {
     firstName: string;
@@ -18,6 +19,7 @@ export interface AppointmentScheduleI {
     email: FormControl<string>;
     phoneNumber: FormControl<string>;
     note: FormControl<string>;
+    serviceType: FormControl<AppointmentType>;
     appointment: FormGroup<ApointmentSlotI>
   }
   

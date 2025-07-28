@@ -1,10 +1,12 @@
-<div class="card card-shadow">
-  <div class="card-header">
+<div class="info_container">
+
+<div class="">
+  <div class="">
     <h4 class="test-clip">
       Schedule Appointmment
     </h4>
   </div>
-  <div class="card-body">
+  <div>
     @if (scheduleAppointmentError()) {
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>{{scheduleAppointmentError()}}</strong>
@@ -18,7 +20,7 @@
         <div class="row">
           <!-- First Name -->
 
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             @let firstNameControl = appointmentForm.get('firstName');
             @let firstNameValidity = firstNameControl.touched && firstNameControl.invalid &&
             firstNameControl.hasError('required');
@@ -26,7 +28,7 @@
             <div class="form-floating">
               <input type="text" class="form-control apt-form-control" id="firstName" formControlName="firstName"
                 placeholder="First Name">
-              <label [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName">First Name *</label>
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName" class="fw-bold">First Name *</label>
             </div>
 
             @if (firstNameValidity) {
@@ -35,14 +37,14 @@
           </div>
 
           <!-- Last Name -->
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             @let lastNameControl = appointmentForm.get('lastName');
             @let lastNameValidity = lastNameControl.touched && lastNameControl.invalid &&
             lastNameControl.hasError('required');
 
             <div class="form-floating">
               <input type="text" class="form-control apt-form-control" id="lastName" formControlName="lastName" placeholder="Last Name">
-              <label [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
             </div>
 
             @if (lastNameValidity) {
@@ -51,13 +53,13 @@
           </div>
 
           <!-- Email -->
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             @let emailControl = appointmentForm.get('email');
             @let emailValidity = emailControl.touched && emailControl.invalid && emailControl.hasError('required');
 
             <div class="form-floating">
               <input type="email" class="form-control apt-form-control" id="email" formControlName="email" placeholder="Email">
-              <label [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
             </div>
 
             @if (emailValidity) {
@@ -66,7 +68,7 @@
           </div>
 
           <!-- Phone Number -->
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             @let phoneControl = appointmentForm.get('phoneNumber');
             @let phoneValidity = phoneControl.touched && phoneControl.invalid && phoneControl.hasError('required');
 
@@ -74,7 +76,7 @@
               <input type="tel" class="form-control apt-form-control"
               (blur)="onPhoneNumber()"
                minlength="12" maxlength="12" appPhoneNumberMask id="phone" formControlName="phoneNumber" placeholder="Phone">
-              <label [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Phone *</label>
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Phone *</label>
             </div>
 
             @if (phoneValidity) {
@@ -82,16 +84,62 @@
             }
           </div>
 
+          <!-- Phone Number -->
+          <div class="col-12 col-md-4 mb-3">
+            @let serviceTypeControl = appointmentForm.get('serviceType');
+            @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
+
+            <!-- <div class="form-floating">
+              <input type="text" class="form-control apt-form-control"
+               minlength="12" maxlength="12" id="serviceType" formControlName="serviceType" placeholder="serviceType">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Service Type *</label>
+            </div> -->
+            <!-- <select class="form-select" aria-label="Default select example" formControlName="serviceType">
+               @for (item of servicesList; track item.key) {
+                 <option [value]="item.key">{{item.value}}</option>
+               }
+              
+            </select> -->
+
+            <div class="form-floating">
+              <select class="form-select" id="floatingSelect" formControlName="serviceType" aria-label="Floating label select example">
+                <option selected>Select an option</option>
+                @for (item of servicesList; track item.key) {
+                  <option [value]="item.key">{{item.value}}</option>
+                }
+              </select>
+              <label class="fw-bold" for="floatingSelect">Select Service Type</label>
+            </div>
+
+            @if (serviceTypeValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Message (optional field not defined in form group) -->
+          <div class="col-12 col-md-4 mb-3">
+            @let messageControl = appointmentForm.get('note');
+            @let messageValidity = messageControl.touched && messageControl.invalid &&
+            messageControl.hasError('required');
+            <div class="form-floating">
+              <textarea class="form-control" id="note" formControlName="note" rows="1"></textarea>
+              <label class="fw-bold" [ngClass]="{'invalid-label': messageValidity}" for="note">Notes *</label>
+            </div>
+            @if (messageValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
           <!-- Appointment Group: Date -->
-          <div formGroupName="appointment" class="row">
-            <div class="col-12 col-md-6 mb-3">
+          <div formGroupName="appointment">
+            <div class="col-12 col-md-4 mb-3">
               @let dateControl = appointmentForm.get('appointment.date');
               @let dateValidity = dateControl.touched && dateControl.invalid && dateControl.hasError('required');
-              <div class="form-floating">
+              <div class="form-floating ">
 
                 <input (keydown)="preventTyping($event)" [min]="minDate" type="date" class="form-control apt-form-control" id="date"
                   formControlName="date">
-                <label [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
+                <label class="fw-bold" [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
                   *</label>
               </div>
               @if (dateValidity) {
@@ -126,17 +174,7 @@
               }
             </div>
           </div>
-          <!-- Message (optional field not defined in form group) -->
-          <!-- <div class="col-12 mb-3">
-            @let messageControl = appointmentForm.get('note');
-            @let messageValidity = messageControl.touched && messageControl.invalid &&
-            messageControl.hasError('required');
-            <label [ngClass]="{'invalid-label': messageValidity}" for="note" class="form-label">Notes *</label>
-            <textarea class="form-control" id="note" formControlName="note" rows="3"></textarea>
-            @if (messageValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div> -->
+
 
 
           <!-- Submit Button -->
@@ -150,4 +188,5 @@
       </form>
     </div>
   </div>
+</div>
 </div>

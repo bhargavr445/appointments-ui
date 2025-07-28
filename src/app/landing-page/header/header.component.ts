@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { metaData } from '../../commons/constants/app.constants';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+
+
+  appConstants = metaData;
 
   isShrunk = false;
 

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input as RouteInput, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addDays, format } from 'date-fns';
 import { map, Subject, takeUntil } from 'rxjs';
@@ -9,6 +9,7 @@ import * as I from '../commons/interfaces/AppointmentDetailsI';
 import { AppointmentApiService } from '../commons/services/appointment-api.service';
 import { PhoneNumberMaskDirective } from '../phone-number-mask.directive';
 import { TelephonePipe } from '../telephone.pipe';
+import { ServiceTypeList } from '../commons/data/reference-data';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -20,6 +21,7 @@ import { TelephonePipe } from '../telephone.pipe';
 export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
 
   appointmentApiService = inject(AppointmentApiService);
+  type = RouteInput.required<AppointmentType>();
   engagedSlotsList = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.value());
   engagedSlotsListIsLoading = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.isLoading());
   appointmentForm: FormGroup;
@@ -27,8 +29,11 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   scheduleApointmentApiProgress = signal(false);
   scheduleAppointmentError = signal('');
   unsubscribe = new Subject();
+  servicesList = ServiceTypeList;
 
   ngOnInit(): void {
+    console.log(this.type());
+    
     this.#createForm();
     this.appointmentForm.get('appointment.date').valueChanges.pipe(
       map(v => this.#dateFormatter(v)),
@@ -51,6 +56,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       phoneNumber: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      serviceType: new FormControl(this.type(), { nonNullable: true, validators: [Validators.required] }),
       note: new FormControl('', { nonNullable: true}),
       appointment: new FormGroup<I.ApointmentSlotI>({
         date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
@@ -121,3 +127,5 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   }
 
 }
+
+export type AppointmentType = 'j' | 'm';

@@ -12,8 +12,7 @@ export class AdminApiService {
   fetchAppointmentsByEmailResource = httpResource<UserDetailsApiResponse>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
 
   fetchAppointmentsByDateResource = httpResource<UserDetailsByAppointmentDate>(() => this.date() ? `searchAppointmentsByDate?date=${this.date()}`: undefined);
+
 }
-
-
 
 

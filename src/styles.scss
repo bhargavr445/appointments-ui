@@ -5,9 +5,10 @@
 }
 
 body {
-  padding-top: 90px; // default for desktop
+  padding-top: 112px; // default for desktop
+  background-color: #fafafa;
   @media (max-width: 768px) {
-    padding-top: 46px; // smaller padding for mobile/tablets
+    padding-top: 92px; // smaller padding for mobile/tablets
   }
 }
 .mr-8 {
@@ -37,17 +38,104 @@ input.ng-invalid.ng-touched {
   padding-left: 0;
   padding-right: 0;
 }
-.moving_container1 {
-  background: rgb(174, 245, 174);
-}
 
+.mar-l-r-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+.moving_container {
+  background: linear-gradient(to right bottom,
+   rgb(241 241 241 / 30%),
+   rgba(3, 132, 3, 0.3));
+}
 .test-clip {
-  background-image: linear-gradient(to right, #2196F3, #E91E63);
-  display: inline;
+  background: linear-gradient(90deg,
+    #2dd59a 0%,
+    #f9c80e 25%,
+    #f86624 50%,
+    #ea32c9 75%,
+    #6a4c93 100%);  display: inline;
+  line-height: 36px;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .pad-t-14 {
   padding-top: 14px;
+}
+
+.pad-t-b-20 {
+  padding: 20px 0px;
+}
+
+.margin-t-b-14 {
+  margin: 14px 0;
+}
+.pad-10 {
+  padding: 10px;
+}
+.pad-b-15 {
+  padding-bottom: 15px;
+}
+button {
+  transition: transform 0.1s ease;
+}
+button:active {
+  transform: translateY(-2px);
+}
+
+.info_container {
+  min-height: 70vh;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.section_main {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  min-height: 400px;
+  transition: box-shadow 0.8s ease, transform 0.8s ease;
+  background: linear-gradient(
+    135deg, /* angle: top-left to bottom-right */
+    #fff1c8 0%,     /* light orange at top-left */
+    rgba(255, 165, 0, 0.0) 10%,    /* fade out */
+    rgba(0, 123, 255, 0.0) 90%,    /* transparent middle */
+    rgba(0, 123, 255, 0.3) 100%    /* light blue at bottom-right */
+  );
+  box-shadow:
+      0px -4px 6px rgba(0, 0, 0, 0.1),  /* top */
+      4px 0px 6px rgba(0, 0, 0, 0.1),   /* right */
+      0px 4px 6px rgba(0, 0, 0, 0.1);   /* bottom */
+  
+
+  @media (max-width: 768px) {
+    min-height: unset;
+  }
+
+  &:hover {
+    box-shadow:
+      0px -4px 6px rgba(0, 0, 0, 0.1),  /* top */
+      4px 0px 6px rgba(0, 0, 0, 0.1),   /* right */
+      0px 4px 6px rgba(0, 0, 0, 0.1);   /* bottom */
+  }
+
+}
+
+.mar-t-b {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.pad-t-b-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+select {
+  min-height: 56px;
+}
+.nav-link.active {
+  color: #ffc107;
+  // font-size: large;
+  border-bottom: 5px solid #ffc107;
 }
