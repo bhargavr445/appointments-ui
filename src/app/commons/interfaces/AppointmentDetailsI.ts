@@ -20,7 +20,15 @@ export interface AppointmentScheduleI {
     phoneNumber: FormControl<string>;
     note: FormControl<string>;
     serviceType: FormControl<AppointmentType>;
-    appointment: FormGroup<ApointmentSlotI>
+    appointment: FormGroup<ApointmentSlotI>;
+    movingFrom: FormGroup<ApartmentTypeI>;
+    movingTo: FormGroup<ApartmentTypeI>;
+  }
+
+  export interface ApartmentTypeI {
+    apartmentType: FormControl<string>;
+    elevator?: FormControl<boolean>;
+    floorNumber?: FormControl<number>;
   }
   
   export interface ApointmentSlotI {

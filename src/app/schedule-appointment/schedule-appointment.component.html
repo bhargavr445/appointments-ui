@@ -89,18 +89,6 @@
             @let serviceTypeControl = appointmentForm.get('serviceType');
             @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
 
-            <!-- <div class="form-floating">
-              <input type="text" class="form-control apt-form-control"
-               minlength="12" maxlength="12" id="serviceType" formControlName="serviceType" placeholder="serviceType">
-              <label class="fw-bold" [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Service Type *</label>
-            </div> -->
-            <!-- <select class="form-select" aria-label="Default select example" formControlName="serviceType">
-               @for (item of servicesList; track item.key) {
-                 <option [value]="item.key">{{item.value}}</option>
-               }
-              
-            </select> -->
-
             <div class="form-floating">
               <select class="form-select" id="floatingSelect" formControlName="serviceType" aria-label="Floating label select example">
                 <option selected>Select an option</option>
@@ -115,6 +103,18 @@
             <div class="apt-validation">This is a required field</div>
             }
           </div>
+
+          <div class="col-12 col-md-4 mb-3">
+             <label class="fw-bold" for="note">Moving From</label>
+             <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
+          </div>
+
+           <div class="col-12 col-md-4 mb-3">
+             <label class="fw-bold" for="note">Moving To</label>
+            <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
+          </div>
+          
+         
 
           <!-- Message (optional field not defined in form group) -->
           <div class="col-12 col-md-4 mb-3">
@@ -174,8 +174,6 @@
               }
             </div>
           </div>
-
-
 
           <!-- Submit Button -->
           <div class="col-12 text-end">

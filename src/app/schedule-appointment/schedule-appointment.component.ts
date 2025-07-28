@@ -10,10 +10,11 @@ import { AppointmentApiService } from '../commons/services/appointment-api.servi
 import { PhoneNumberMaskDirective } from '../phone-number-mask.directive';
 import { TelephonePipe } from '../telephone.pipe';
 import { ServiceTypeList } from '../commons/data/reference-data';
+import { ApartmentTypeComponent } from "./apartment-type/apartment-type.component";
 
 @Component({
   selector: 'app-schedule-appointment',
-  imports: [FormsModule, ReactiveFormsModule, TimePickerComponent, NgClass, PhoneNumberMaskDirective],
+  imports: [FormsModule, ReactiveFormsModule, TimePickerComponent, NgClass, PhoneNumberMaskDirective, ApartmentTypeComponent],
   templateUrl: './schedule-appointment.component.html',
   styleUrl: './schedule-appointment.component.scss',
   providers: [AppointmentApiService]
@@ -56,14 +57,24 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       phoneNumber: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      
+      movingFrom: new FormGroup<I.ApartmentTypeI>({
+        apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      }),
+      
+      movingTo: new FormGroup<I.ApartmentTypeI>({
+        apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      }),
       serviceType: new FormControl(this.type(), { nonNullable: true, validators: [Validators.required] }),
-      note: new FormControl('', { nonNullable: true}),
+      note: new FormControl('', { nonNullable: true }),
+      
       appointment: new FormGroup<I.ApointmentSlotI>({
         date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
         time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
       })
     })
   }
+
 
   selectedTime(event): void {
     this.appointmentForm.get('appointment.time').setValue(event);
