@@ -18,6 +18,26 @@
     <div class="container mt-4">
       <form [formGroup]="appointmentForm">
         <div class="row">
+
+          <div class="row mb-4">
+            <!-- Moving From -->
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+              <div class="border rounded p-3 h-100 bg-white shadow-sm">
+                <label class="fw-bold d-block mb-2">Moving From</label>
+                <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
+              </div>
+            </div>
+
+            <!-- Moving To -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded p-3 h-100 bg-white shadow-sm">
+                <label class="fw-bold d-block mb-2">Moving To</label>
+                <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
+              </div>
+            </div>
+          </div>
+
+
           <!-- First Name -->
 
           <div class="col-12 col-md-4 mb-3">
@@ -84,7 +104,7 @@
             }
           </div>
 
-          <!-- Phone Number -->
+          <!-- Service Type -->
           <div class="col-12 col-md-4 mb-3">
             @let serviceTypeControl = appointmentForm.get('serviceType');
             @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
@@ -103,20 +123,8 @@
             <div class="apt-validation">This is a required field</div>
             }
           </div>
-
-          <div class="col-12 col-md-4 mb-3">
-             <label class="fw-bold" for="note">Moving From</label>
-             <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
-          </div>
-
-           <div class="col-12 col-md-4 mb-3">
-             <label class="fw-bold" for="note">Moving To</label>
-            <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
-          </div>
           
-         
-
-          <!-- Message (optional field not defined in form group) -->
+          <!-- Notes -->
           <div class="col-12 col-md-4 mb-3">
             @let messageControl = appointmentForm.get('note');
             @let messageValidity = messageControl.touched && messageControl.invalid &&
