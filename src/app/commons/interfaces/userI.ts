@@ -9,6 +9,9 @@ export interface UserDetails {
   phoneNumber: string;
   updatedAt: Date;
   note: string;
+  status: string;
+  appointmentTime: string;
+  appointmentDate: string;
   appliances: { numberOfLargeAppliances: number};
   boxes: {noOfBoxes: number};
   specialItems: {largeOrHeavyItems: string};

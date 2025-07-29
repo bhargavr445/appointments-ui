@@ -39,10 +39,10 @@
     <!-- Date and Time -->
     <div class="row mb-2">
       <div class="col-12 col-md-6">
-        <strong>Date:</strong> {{ item.appointments?.date }}
+        <strong>Date:</strong> {{ item.appointmentDate }}
       </div>
       <div class="col-12 col-md-6">
-        <strong>Time:</strong> <app-schedule-timer [time]="item.appointments?.time" />
+        <strong>Time:</strong> <app-schedule-timer [time]="item.appointmentTime" />
       </div>
     </div>
 
@@ -50,7 +50,7 @@
     <div class="row mb-2">
       <div class="col-12">
         <strong>Status:</strong>
-        <span class="badge bg-success text-capitalize">{{ item.appointments?.status }}</span>
+        <span class="badge bg-success text-capitalize">{{ item.status }}</span>
       </div>
     </div>
 
