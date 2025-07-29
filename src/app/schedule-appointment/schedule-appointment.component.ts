@@ -11,10 +11,16 @@ import { PhoneNumberMaskDirective } from '../phone-number-mask.directive';
 import { TelephonePipe } from '../telephone.pipe';
 import { ServiceTypeList } from '../commons/data/reference-data';
 import { ApartmentTypeComponent } from "./apartment-type/apartment-type.component";
+import { FurnitureComponent } from './furniture/furniture.component';
+import { AppliancesComponent } from './appliances/appliances.component';
+import { ElectronicsComponent } from "./electronics/electronics.component";
+import { BoxesComponent } from "./boxes/boxes.component";
+import { SpecialItemsComponent } from "./special-items/special-items.component";
 
 @Component({
   selector: 'app-schedule-appointment',
-  imports: [FormsModule, ReactiveFormsModule, TimePickerComponent, NgClass, PhoneNumberMaskDirective, ApartmentTypeComponent],
+  imports: [FormsModule, ReactiveFormsModule, FurnitureComponent, AppliancesComponent,
+    TimePickerComponent, NgClass, PhoneNumberMaskDirective, ApartmentTypeComponent, ElectronicsComponent, BoxesComponent, SpecialItemsComponent],
   templateUrl: './schedule-appointment.component.html',
   styleUrl: './schedule-appointment.component.scss',
   providers: [AppointmentApiService]
@@ -32,9 +38,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
   servicesList = ServiceTypeList;
 
-  ngOnInit(): void {
-    console.log(this.type());
-    
+  ngOnInit(): void {    
     this.#createForm();
     this.appointmentForm.get('appointment.date').valueChanges.pipe(
       map(v => this.#dateFormatter(v)),
@@ -57,24 +61,57 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       phoneNumber: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      
-      movingFrom: new FormGroup<I.ApartmentTypeI>({
-        apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
-      }),
-      
-      movingTo: new FormGroup<I.ApartmentTypeI>({
-        apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
-      }),
+      movingFrom: this.#movingForm(),
+      movingTo: this.#movingForm(),
       serviceType: new FormControl(this.type(), { nonNullable: true, validators: [Validators.required] }),
       note: new FormControl('', { nonNullable: true }),
-      
-      appointment: new FormGroup<I.ApointmentSlotI>({
-        date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
-        time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      appointment: this.#appointForm(),
+      currentAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      newAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      furniture: new FormGroup({
+        numberOfFurniturePieces: new FormControl('', { nonNullable: true, validators: [Validators.required] }), // number 
+        listOfLargeItems: new FormControl('', { nonNullable: true, validators: [Validators.required] }) //text
+      }),
+      appliances: new FormGroup({
+        numberOfLargeAppliances: new FormControl('', { nonNullable: true, validators: [Validators.required] }) // number
+      }),
+      electronics: new FormGroup({
+        numberOfTvs: new FormControl(null , { nonNullable: true, validators: [Validators.required] }), //number
+        numberOfMonitorsAndComputers: new FormControl('',  { nonNullable: true, validators: [Validators.required] }), // number
+        otherElectronics: new FormControl('',  { nonNullable: true, validators: [Validators.required] }),
+      }),
+      boxes: new FormGroup({
+        noOfBoxes: new FormControl(null , { nonNullable: true, validators: [Validators.required] }),
+        // fragile: new FormControl('',  { nonNullable: true, validators: [Validators.required] })
+      }),
+      specialItems: new FormGroup({
+        largeOrHeavyItems: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       })
     })
   }
 
+  #addressForm() {
+    return new FormGroup({
+      line1: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      line2: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      state: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      city: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      zip: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    })
+  }
+
+  #movingForm() {
+    return new FormGroup<I.ApartmentTypeI>({
+      apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    })
+  }
+
+  #appointForm() {
+    return new FormGroup<I.ApointmentSlotI>({
+      date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
+      time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    })
+  }
 
   selectedTime(event): void {
     this.appointmentForm.get('appointment.time').setValue(event);
@@ -87,7 +124,8 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   scheduleAppointment(): void {
     this.scheduleAppointmentError.set('');
     console.log(this.appointmentForm.getRawValue());
-    
+    console.log(this.appointmentForm);
+
     if (this.appointmentForm.valid) {
       this.scheduleApointmentApiProgress.set(true);
       const payload: I.AppointmentScheduleI = this.appointmentForm.getRawValue();
@@ -95,7 +133,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       payload.email = payload.email.toLocaleLowerCase();
       this.appointmentApiService.scheduleAppointment(payload).subscribe({
         next: (response) => this.#afterSchedulingApointment(response),
-        error: (error) =>  this.#handleError(error) 
+        error: (error) => this.#handleError(error)
       })
     } else {
       this.appointmentForm.markAllAsTouched();

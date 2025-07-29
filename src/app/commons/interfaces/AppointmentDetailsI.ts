@@ -23,6 +23,21 @@ export interface AppointmentScheduleI {
     appointment: FormGroup<ApointmentSlotI>;
     movingFrom: FormGroup<ApartmentTypeI>;
     movingTo: FormGroup<ApartmentTypeI>;
+    furniture:  FormGroup<any>;
+    appliances:  FormGroup<any>;
+    electronics:  FormGroup<any>;
+    boxes:  FormGroup<any>;
+    specialItems:  FormGroup<any>;
+    currentAddress: FormControl<string>;
+    newAddress: FormControl<string>;
+  }
+
+  export interface AddressInfoI {
+    line1: FormControl<string>;
+    line2: FormControl<string>;
+    state: FormControl<string>;
+    city: FormControl<string>;
+    zip: FormControl<string>;
   }
 
   export interface ApartmentTypeI {

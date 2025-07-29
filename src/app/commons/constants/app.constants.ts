@@ -12,7 +12,7 @@ export const timeSlots = [
 ]
 
 export const metaData = {
-    phoneNumber: '890.890.8900',
+    phoneNumber: '306.351.2192',
     country: 'Canada, CA',
     HAUL_MOVE: 'HAUL & MOVE',
     bookingInfo: 'Book Junk Removal or Moving Help Today',

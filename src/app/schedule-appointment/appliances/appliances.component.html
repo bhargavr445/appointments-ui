@@ -1,0 +1,27 @@
+<form [formGroup]="appliancesForm">
+<div class="row">
+    <div class="col-12 col-md-4 mb-3">
+        @let numberOfLargeAppliancesControl = appliancesForm.get('numberOfLargeAppliances');
+        @let numberOfLargeAppliancesValidity = numberOfLargeAppliancesControl.touched &&
+        numberOfLargeAppliancesControl.invalid &&
+        numberOfLargeAppliancesControl.hasError('required');
+
+        <div class="form-floating">
+            <input 
+                type="number" 
+                class="form-control apt-form-control" 
+                id="numberOfLargeAppliances"
+                formControlName="numberOfLargeAppliances" 
+                placeholder="Last Name"
+            >
+            <label class="fw-bold" [ngClass]="{ 'invalid-label': numberOfLargeAppliancesValidity }"
+                for="numberOfLargeAppliances">Number Of Furniture Pieces *</label>
+        </div>
+
+        @if (numberOfLargeAppliancesValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+
+</div>
+</form>
