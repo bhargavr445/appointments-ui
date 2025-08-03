@@ -1,4 +1,4 @@
-import { SlotI } from "./slotI";
+import { CheckAvailableDatesI, SlotI } from "./slotI";
 import { UserDetailsBasedOnDateI, UserDetailsBasedOnEmail } from "./userI";
 
 export interface ApiResponseI<T> {
@@ -8,6 +8,6 @@ export interface ApiResponseI<T> {
 
 export type UserDetailsApiResponse = ApiResponseI<UserDetailsBasedOnEmail>;
 export type UserDetailsByAppointmentDate = ApiResponseI<UserDetailsBasedOnDateI[]>;
-export type ScheduledTimeSlotsApiResponseI = ApiResponseI<SlotI[]>;
+export type ScheduledTimeSlotsApiResponseI = ApiResponseI<CheckAvailableDatesI[]>;
 
 

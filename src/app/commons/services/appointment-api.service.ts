@@ -2,7 +2,7 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { format } from 'date-fns/format';
 import { ScheduledTimeSlotsApiResponseI } from '../interfaces/api-response';
-import { SlotI } from '../interfaces/slotI';
+import { CheckAvailableDatesI } from '../interfaces/slotI';
 
 
 @Injectable()
@@ -12,19 +12,14 @@ export class AppointmentApiService {
 
   selectedDate = signal(format(new Date(), "MM/dd/yyyy"));
 
-  availableSlotsForSelectedDate = httpResource<string[]>(() => `checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`
-  //   ({
-  //   url: `checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`,
-  //   method: 'GET',
-  // })
-  ,
+  availableSlotsForSelectedDate = httpResource<string[]>(() => ({
+    url: `checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`,
+    method: 'GET',
+  }),
+    //`checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`
     {
       defaultValue: [],
-      parse: (data: ScheduledTimeSlotsApiResponseI) => {
-        const allocatedTimeSlots: SlotI[] = data.data.filter((slot: SlotI) => slot.status === 'confirmed');
-        const timeList = allocatedTimeSlots.map((slot: SlotI) => slot.time);
-        return timeList
-      }
+      parse: (data: ScheduledTimeSlotsApiResponseI) => data.data.map((time: CheckAvailableDatesI) => time.appointmentTime)
     }
   );
 

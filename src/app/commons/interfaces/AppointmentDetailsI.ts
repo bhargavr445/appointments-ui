@@ -14,22 +14,27 @@ export interface AppointmentScheduleI {
   }
   
   export interface AppointmentScheduleFormI {
+    contactInfo: FormGroup<ContactInfoControlsI>;
+    note: FormControl<string>;
+    serviceType: FormControl<AppointmentType>;
+    appointment: FormGroup<ApointmentSlotI>;
+    movingFrom?: FormGroup<ApartmentTypeI>;
+    movingTo?: FormGroup<ApartmentTypeI>;
+    furniture?:  FormGroup<any>;
+    appliances?:  FormGroup<any>;
+    electronics?:  FormGroup<any>;
+    boxes?:  FormGroup<any>;
+    specialItems?:  FormGroup<any>;
+    currentAddress: FormControl<string>;
+    newAddress: FormControl<string>;
+    packingHelp: FormControl<boolean>;
+  }
+
+  export interface ContactInfoControlsI {
     firstName: FormControl<string>;
     lastName: FormControl<string>;
     email: FormControl<string>;
     phoneNumber: FormControl<string>;
-    note: FormControl<string>;
-    serviceType: FormControl<AppointmentType>;
-    appointment: FormGroup<ApointmentSlotI>;
-    movingFrom: FormGroup<ApartmentTypeI>;
-    movingTo: FormGroup<ApartmentTypeI>;
-    furniture:  FormGroup<any>;
-    appliances:  FormGroup<any>;
-    electronics:  FormGroup<any>;
-    boxes:  FormGroup<any>;
-    specialItems:  FormGroup<any>;
-    currentAddress: FormControl<string>;
-    newAddress: FormControl<string>;
   }
 
   export interface AddressInfoI {

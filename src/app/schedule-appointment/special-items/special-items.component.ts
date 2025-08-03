@@ -5,8 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'special-items',
   imports: [ReactiveFormsModule, NgClass],
-  templateUrl: './special-items.component.html',
-  styleUrl: './special-items.component.scss'
+  templateUrl: './special-items.component.html'
 })
 export class SpecialItemsComponent {
 

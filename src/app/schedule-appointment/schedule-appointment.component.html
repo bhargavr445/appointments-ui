@@ -8,12 +8,12 @@
   </div>
   <div>
     @if (scheduleAppointmentError()) {
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{scheduleAppointmentError()}}</strong>
-        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>{{scheduleAppointmentError()}}</strong>
+      <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     }
     <div class="container mt-4">
       <form [formGroup]="appointmentForm">
@@ -21,21 +21,55 @@
 
           <!-- <div class="row mb-4"> -->
             <!-- Moving From -->
-             
-            <div class="col-12 col-md-6 mb-3">
-              <div class="border rounded p-3 h-100 bg-white shadow-sm">
-                <label class="fw-bold d-block mb-2">Moving From</label>
-                <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
-              </div>
+
+                      <!-- Service Type -->
+          <div class="col-12 col-md-4 mb-3">
+            @let serviceTypeControl = appointmentForm.get('serviceType');
+            @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
+
+            <div class="form-floating">
+              <select 
+                class="form-select" 
+                id="floatingSelect" 
+                formControlName="serviceType"
+                (change)="onServiceTypeChange($event)"
+                aria-label="Floating label select example">
+                <option selected>Select an option</option>
+                @for (item of servicesList; track item.key) {
+                  <option [value]="item.key">{{item.value}}</option>
+                }
+              </select>
+              <label class="fw-bold" for="floatingSelect">Select Service Type</label>
             </div>
 
-            <!-- Moving To -->
-            <div class="col-12 col-md-6 mb-3">
-              <div class="border rounded p-3 h-100 bg-white shadow-sm">
-                <label class="fw-bold d-block mb-2">Moving To</label>
-                <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
-              </div>
+            @if (serviceTypeValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+          @if (appointmentForm.contains('packingHelp')) {
+          <div class="col-12 col-md-4 mb-3">
+            <packing [packingHelp]="appointmentForm.get('packingHelp')" />
+          </div>
+          }
+
+          @if (appointmentForm.contains('movingFrom')) {
+          <div class="col-12 col-md-6 mb-3">
+            <div class="border rounded p-3 h-100 bg-white shadow-sm">
+              <label class="fw-bold d-block mb-2">Moving From</label>
+              <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
             </div>
+          </div>
+          }
+
+          <!-- Moving To -->
+          @if (appointmentForm.contains('movingTo')) {
+          <div class="col-12 col-md-6 mb-3">
+            <div class="border rounded p-3 h-100 bg-white shadow-sm">
+              <label class="fw-bold d-block mb-2">Moving To</label>
+              <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
+            </div>
+          </div>
+          }
           <!-- </div> -->
 
           <!-- First Name -->
@@ -60,7 +94,7 @@
             }
           </div>
 
-            <div class="col-12 col-md-4 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             @let newAddressControl = appointmentForm.get('newAddress');
             @let newAddressValidity = newAddressControl.touched && newAddressControl.invalid &&
             newAddressControl.hasError('required');
@@ -92,119 +126,43 @@
             <div class="apt-validation">This is a required field</div>
             }
           </div>
-
-          
-
-          <div class="col-12 col-md-4 mb-3">
-            @let firstNameControl = appointmentForm.get('firstName');
-            @let firstNameValidity = firstNameControl.touched && firstNameControl.invalid &&
-            firstNameControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="text" class="form-control apt-form-control" id="firstName" formControlName="firstName"
-                placeholder="First Name">
-              <label class="fw-bold" [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName" class="fw-bold">First Name *</label>
-            </div>
-
-            @if (firstNameValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
+          @if (appointmentForm.contains('contactInfo')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Contact Info:</label>
+            <contact-info [contactInfoForm]="appointmentForm.get('contactInfo')" />
           </div>
+          }
 
-          <!-- Last Name -->
-          <div class="col-12 col-md-4 mb-3">
-            @let lastNameControl = appointmentForm.get('lastName');
-            @let lastNameValidity = lastNameControl.touched && lastNameControl.invalid &&
-            lastNameControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="text" class="form-control apt-form-control" id="lastName" formControlName="lastName" placeholder="Last Name">
-              <label class="fw-bold" [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
-            </div>
-
-            @if (lastNameValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Email -->
-          <div class="col-12 col-md-4 mb-3">
-            @let emailControl = appointmentForm.get('email');
-            @let emailValidity = emailControl.touched && emailControl.invalid && emailControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="email" class="form-control apt-form-control" id="email" formControlName="email" placeholder="Email">
-              <label class="fw-bold" [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
-            </div>
-
-            @if (emailValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Phone Number -->
-          <div class="col-12 col-md-4 mb-3">
-            @let phoneControl = appointmentForm.get('phoneNumber');
-            @let phoneValidity = phoneControl.touched && phoneControl.invalid && phoneControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="tel" class="form-control apt-form-control"
-              (blur)="onPhoneNumber()"
-               minlength="12" maxlength="12" appPhoneNumberMask id="phone" formControlName="phoneNumber" placeholder="Phone">
-              <label class="fw-bold" [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Phone *</label>
-            </div>
-
-            @if (phoneValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Service Type -->
-          <div class="col-12 col-md-4 mb-3">
-            @let serviceTypeControl = appointmentForm.get('serviceType');
-            @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
-
-            <div class="form-floating">
-              <select class="form-select" id="floatingSelect" formControlName="serviceType" aria-label="Floating label select example">
-                <option selected>Select an option</option>
-                @for (item of servicesList; track item.key) {
-                  <option [value]="item.key">{{item.value}}</option>
-                }
-              </select>
-              <label class="fw-bold" for="floatingSelect">Select Service Type</label>
-            </div>
-
-            @if (serviceTypeValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-      
+          @if (appointmentForm.contains('furniture')) {
           <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
             <label class="fw-bold d-block mb-2">Furniture:</label>
             <furniture [furnitureForm]="appointmentForm.get('furniture')" />
           </div>
-
+          }
+          @if (appointmentForm.contains('appliances')) {
           <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
             <label class="fw-bold d-block mb-2">Appliances:</label>
             <appliances [appliancesForm]="appointmentForm.get('appliances')" />
           </div>
-          
+          }
+          @if (appointmentForm.contains('electronics')) {
           <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
             <label class="fw-bold d-block mb-2">Electronics:</label>
             <electronics [electronicsForm]="appointmentForm.get('electronics')" />
           </div>
+          }
+          @if (appointmentForm.contains('boxes')) {
           <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
             <label class="fw-bold d-block mb-2">Boxes:</label>
             <boxes [boxesForm]="appointmentForm.get('boxes')" />
           </div>
-
+          }
+          @if (appointmentForm.contains('specialItems')) {
           <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
             <label class="fw-bold d-block mb-2">Special Items:</label>
             <special-items [specialItemsForm]="appointmentForm.get('specialItems')" />
           </div>
-            
-          
+          }
 
           <!-- Appointment Group: Date -->
           <div formGroupName="appointment">
@@ -243,6 +201,7 @@
                 </div>
               } @else {
               <app-time-picker 
+                [selectedDate]="appointmentForm.get('appointment').get('date').value"
                 [bookedSlots]="engagedSlotsList()" 
                 (selectedTimeEmitter)="selectedTime($event)"
                 (touchedEmitter)="touchedEvent()" 
@@ -254,7 +213,8 @@
           <!-- Submit Button -->
           <div class="col-12 text-end">
             <button class="btn btn-primary rounded-pill px-4 shadow-sm"
-              (click)="scheduleAppointment()"> {{ scheduleApointmentApiProgress() ? 'Scheduling...' : 'Schedule'}}</button>
+              (click)="scheduleAppointment()"> {{ scheduleApointmentApiProgress() ? 'Scheduling...' : 'Schedule'}}
+            </button>
             <button class="btn btn-outline-warning rounded-pill px-4 ms-2">Cancel</button>
           </div>
 

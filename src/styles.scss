@@ -19,6 +19,10 @@ body {
   margin-left: 10px;
 }
 
+.mar-t-100 {
+    margin-top: 100px;
+}
+
 .apt-validation {
   color: rgb(244, 122, 122);
   transition: transform 0.9s;
@@ -42,6 +46,11 @@ input.ng-invalid.ng-touched {
 .mar-l-r-0 {
   margin-left: 0;
   margin-right: 0;
+}
+
+.mar-l-r-20 {
+  margin-left: 80px;
+  margin-right: 80px;
 }
 .moving_container {
   background: linear-gradient(to right bottom,

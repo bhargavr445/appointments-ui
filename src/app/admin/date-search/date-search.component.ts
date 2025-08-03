@@ -1,19 +1,18 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { addDays, format } from 'date-fns';
 import { map } from 'rxjs';
 import { dateFormatter, ISODateFormatter } from '../../commons/constants/app.constants';
 import { AdminApiService } from '../../commons/services/admin-api.service';
-import { ScheduleTimerComponent } from "../../commons/components/schedule-timer/schedule-timer.component";
+import { UserDetailsComponent } from "../user-details/user-details.component";
 
 @Component({
   selector: 'app-date-search',
-  imports: [FormsModule, ReactiveFormsModule, ScheduleTimerComponent],
+  imports: [FormsModule, ReactiveFormsModule, UserDetailsComponent],
   templateUrl: './date-search.component.html',
-  styleUrl: './date-search.component.scss',
-  providers: [AdminApiService]
+  providers: [AdminApiService],
 })
-export class DateSearchComponent implements OnInit {
+export class DateSearchComponent implements OnInit, OnDestroy {
 
   adminApiService = inject(AdminApiService);
   date = new FormControl(format(new Date(), ISODateFormatter));
@@ -23,6 +22,7 @@ export class DateSearchComponent implements OnInit {
   selectedDate = '';
 
   ngOnInit(): void {
+    this.adminApiService.setDate();
     this.date.valueChanges.pipe(map(v => this.#dateFormatter(v))).subscribe((v) => {
       this.selectedDate = v;
     });
@@ -41,6 +41,10 @@ export class DateSearchComponent implements OnInit {
 
   searchByDate(): void {
     this.adminApiService.date.set(this.selectedDate);
+  }
+
+  ngOnDestroy(): void {
+    this.adminApiService.resetDate();
   }
 
 }

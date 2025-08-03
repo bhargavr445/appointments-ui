@@ -4,8 +4,7 @@ import { timeSlots } from '../../constants/app.constants';
 @Component({
   selector: 'app-schedule-timer',
   imports: [],
-  templateUrl: './schedule-timer.component.html',
-  styleUrl: './schedule-timer.component.scss'
+  template: `<span>{{derivedLabel().label}}</span>`
 })
 export class ScheduleTimerComponent {
 

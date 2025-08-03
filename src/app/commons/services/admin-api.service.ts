@@ -7,11 +7,19 @@ import { format } from 'date-fns';
 export class AdminApiService {
 
   email = signal('');
-  date = signal(format(new Date(), "MM/dd/yyyy"));
+  date = signal('');
 
-  fetchAppointmentsByEmailResource = httpResource<UserDetailsApiResponse>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
+  fetchAppointmentsByEmailResource = httpResource<UserDetailsByAppointmentDate>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
 
   fetchAppointmentsByDateResource = httpResource<UserDetailsByAppointmentDate>(() => this.date() ? `searchAppointmentsByDate?date=${this.date()}`: undefined);
+
+  setDate() {
+    this.date.set(format(new Date(), "MM/dd/yyyy"));
+  }
+
+  resetDate() {
+    this.date.set('');
+  }
 
 }
 

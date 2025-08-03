@@ -17,6 +17,7 @@ export interface UserDetails {
   specialItems: {largeOrHeavyItems: string};
   currentAddress: string;
   newAddress: string;
+  packingHelp: boolean;
   electronics: {
     numberOfMonitorsAndComputers: number
                 numberOfTvs: number

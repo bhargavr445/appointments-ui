@@ -22,25 +22,28 @@
       <a class="navbar-brand apt-txt-color test-clip" routerLink="/">{{appConstants.HAUL_MOVE}}</a>
     </strong>
     <div class="d-flex align-items-center gap-2">
-      <button class="btn btn-warning text-uppercase fw-bold quote-btn" routerLink="/schedule">
+      <button class="btn btn-warning text-uppercase fw-bold quote-btn" (click)="navigateTo()">
         Free Quote
       </button>
       <button (click)="onMenuOpen()"
         class="navbar-toggler btn btn-outline-dark d-md-none d-flex flex-column align-items-center menu-toggle-btn"
         type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon">{{isOpen()}}</span>
       </button>
-    </div>
-  </div>
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav ms-auto px-3">
-      <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/home"   [routerLinkActiveOptions]="{ exact: true }">Home</a></li> -->
-      <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/services">Services</a></li> -->
-      <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/about">About</a></li>
-      <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/faq">FAQ</a></li>
-      <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/contact">Contact</a></li> -->
-      <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/admin">Admin</a></li>
-    </ul>
-  </div>
+      </div>
+      </div>
+      <!-- @if (isOpen()) { -->
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto px-3">
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/home"   [routerLinkActiveOptions]="{ exact: true }">Home</a></li> -->
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/services">Services</a></li> -->
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/faq">FAQ</a></li>
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/contact">Contact</a></li> -->
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/admin">Admin</a></li>
+        </ul>
+      </div>
+  <!-- } -->
+
 </nav>
 
