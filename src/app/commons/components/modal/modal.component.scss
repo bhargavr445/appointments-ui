@@ -1,0 +1,11 @@
+.modal {
+  background: #00000094; /* No default background */
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+body.modal-open {
+  overflow: hidden; /* Prevent background scrolling */
+}

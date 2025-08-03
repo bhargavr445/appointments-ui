@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit, signal, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, HostListener, inject, inputBinding, OnInit, outputBinding, signal, ViewContainerRef } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { metaData } from '../../commons/constants/app.constants';
 import { filter } from 'rxjs';
@@ -13,12 +13,12 @@ import { ModalComponent } from '../../commons/components/modal/modal.component';
 export class HeaderComponent implements OnInit {
 
   #router = inject(Router);
+  #vcr = inject(ViewContainerRef);
   appConstants = metaData;
   isOpen = signal(false);
-  vcr = inject(ViewContainerRef);
-
-
+  #componentRef: ComponentRef<ModalComponent>;
   isShrunk = false;
+  isMobile = false;
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -31,8 +31,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  isMobile = false;
-
   ngOnInit(): void {
     this.isMobile = window.innerWidth <= 768;
 
@@ -44,7 +42,17 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateTo() {
-    this.vcr.createComponent(ModalComponent);
+    this.#componentRef = this.#vcr.createComponent(ModalComponent, {
+      bindings: [
+        inputBinding('isOpen', signal(true)),
+        outputBinding('close', () => this.onModalClose())
+      ]
+    });
+  }
+
+  onModalClose() {
+    console.log('Destroy...');
+    this.#componentRef.destroy()
   }
 
   onMenuOpen() {

@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, linkedSignal, model, output } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -9,6 +9,13 @@ import { Component, input } from '@angular/core';
 })
 export class ModalComponent {
 
-  isOpen = input.required<boolean>();
+  isOpen = model.required<boolean>();
+  isOpneL = linkedSignal(this.isOpen);
+  close = output();
+
+  onClose() {
+    this.isOpneL.set(false);
+    this.close.emit();
+  }
 
 }
