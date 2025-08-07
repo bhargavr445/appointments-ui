@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/landing-page/services-info/services-info.component.scss"],
+  "sourcesContent": [".service-card {\n  border: none;\n  background-color: #fdfdfd;\n  // padding: 1rem;\n  transition: transform 0.9s ease;\n  box-shadow: 0 4px 8px #0000001a;\n\n\n  &:hover {\n    transform: translateY(-4px);\n  }\n\n  .service-icon {\n    width: 48px;\n    height: 48px;\n    object-fit: contain;\n  }\n\n  .service-icon {\n    width: 60px;\n    height: 60px;\n    object-fit: contain;\n  }\n\n  h6 {\n    margin-top: 0.5rem;\n    font-size: 1rem;\n  }\n\n  p {\n    font-size: 0.875rem;\n  }\n}\n\n.ft-13 {\n  font-size: 13px;\n}\n\n.responsive-image {\n\n  // width: 100%;\n  @media (min-width: 768px) {\n    height: 90vh;\n    object-fit: cover;\n    /* optional but recommended */\n  }\n}\n\nimg.img-fluid {\n  max-width: 100%;\n  height: auto;\n  display: block;\n}\n.card_border {\n  border: 5px solid #ffc107;\n}\n\n.info_section {\n  margin: 0 30px 40px 30px;\n  \n}\n\n"],
+  "mappings": ";AAAA,CAAA;AACE,UAAA;AACA,oBAAA;AAEA,cAAA,UAAA,KAAA;AACA,cAAA,EAAA,IAAA,IAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGA,CARF,YAQE;AACE,aAAA,WAAA;;AAGF,CAZF,aAYE,CAAA;AACE,SAAA;AACA,UAAA;AACA,cAAA;;AAGF,CAlBF,aAkBE,CANA;AAOE,SAAA;AACA,UAAA;AACA,cAAA;;AAGF,CAxBF,aAwBE;AACE,cAAA;AACA,aAAA;;AAGF,CA7BF,aA6BE;AACE,aAAA;;AAIJ,CAAA;AACE,aAAA;;AAMA,OAAA,CAAA,SAAA,EAAA;AAHF,GAAA;AAII,YAAA;AACA,gBAAA;;;AAKJ,GAAA,CAAA;AACE,aAAA;AACA,UAAA;AACA,WAAA;;AAEF,CAAA;AACE,UAAA,IAAA,MAAA;;AAGF,CAAA;AACE,UAAA,EAAA,KAAA,KAAA;;",
+  "names": []
+}
