@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, input, linkedSignal, model, output } from '@angular/core';
+import { Component, linkedSignal, model, output } from '@angular/core';
 
 @Component({
   selector: 'app-modal',

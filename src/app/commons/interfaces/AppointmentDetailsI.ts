@@ -12,6 +12,8 @@ export interface AppointmentScheduleI {
       time: string
     }
   }
+
+  export type Status = 'Confirm' | 'Canceled' | 'Done';
   
   export interface AppointmentScheduleFormI {
     contactInfo: FormGroup<ContactInfoControlsI>;
@@ -26,8 +28,8 @@ export interface AppointmentScheduleI {
     boxes?:  FormGroup<any>;
     specialItems?:  FormGroup<any>;
     currentAddress: FormControl<string>;
-    newAddress: FormControl<string>;
-    packingHelp: FormControl<boolean>;
+    newAddress?: FormControl<string>;
+    packingHelp?: FormControl<boolean>;
   }
 
   export interface ContactInfoControlsI {

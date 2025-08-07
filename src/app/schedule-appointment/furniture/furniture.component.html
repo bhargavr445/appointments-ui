@@ -27,16 +27,16 @@
         @let listOfLargeItemsControl = furnitureForm.get('listOfLargeItems');
         @let listOfLargeItemsValidity = listOfLargeItemsControl.touched && listOfLargeItemsControl.invalid &&
         listOfLargeItemsControl.hasError('required');
-        <div class="form-floating">
+        <div>
             <textarea
                 class="form-control" 
                 id="listOfLargeItems" 
                 formControlName="listOfLargeItems" 
-                placeholder="Last Name"
-                rows="1">
+                placeholder="Ex: Bed, Couch, Wardrobe etc"
+                rows="2">
             </textarea>
-            <label class="fw-bold" [ngClass]="{'invalid-label': listOfLargeItemsValidity}" for="listOfLargeItems">List Of Large Items
-                *</label>
+            <!-- <label class="fw-bold" [ngClass]="{'invalid-label': listOfLargeItemsValidity}" for="listOfLargeItems">List Of Large Items
+                *</label> -->
         </div>
         @if (listOfLargeItemsValidity) {
         <div class="apt-validation">This is a required field</div>

@@ -6,6 +6,7 @@ export interface UserDetails {
   createdAt: Date;
   firstName: string;
   lastName: string;
+  serviceType: string;
   phoneNumber: string;
   updatedAt: Date;
   note: string;
@@ -13,7 +14,7 @@ export interface UserDetails {
   appointmentTime: string;
   appointmentDate: string;
   appliances: { numberOfLargeAppliances: number};
-  boxes: {noOfBoxes: number};
+  boxes: {noOfBoxes: number, containsFragileItems: boolean, fragileItemsDesc: string};
   specialItems: {largeOrHeavyItems: string};
   currentAddress: string;
   newAddress: string;

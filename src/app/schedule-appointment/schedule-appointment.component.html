@@ -15,6 +15,7 @@
       </button>
     </div>
     }
+
     <div class="container mt-4">
       <form [formGroup]="appointmentForm">
         <div class="row">
@@ -30,12 +31,11 @@
             <div class="form-floating">
               <select 
                 class="form-select" 
-                id="floatingSelect" 
+                id="floatingSelect"
                 formControlName="serviceType"
                 (change)="onServiceTypeChange($event)"
                 aria-label="Floating label select example">
-                <option selected>Select an option</option>
-                @for (item of servicesList; track item.key) {
+                @for (item of derivedServicesList(); track item.key) {
                   <option [value]="item.key">{{item.value}}</option>
                 }
               </select>
@@ -93,7 +93,7 @@
             <div class="apt-validation">This is a required field</div>
             }
           </div>
-
+          @if (appointmentForm.contains('newAddress')) {
           <div class="col-12 col-md-4 mb-3">
             @let newAddressControl = appointmentForm.get('newAddress');
             @let newAddressValidity = newAddressControl.touched && newAddressControl.invalid &&
@@ -113,6 +113,8 @@
             <div class="apt-validation">This is a required field</div>
             }
           </div>
+          }
+
                     <!-- Notes -->
           <div class="col-12 col-md-4 mb-3">
             @let messageControl = appointmentForm.get('note');

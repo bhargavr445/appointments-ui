@@ -1,13 +1,16 @@
-import { httpResource } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
-import { UserDetailsApiResponse, UserDetailsByAppointmentDate } from '../interfaces/api-response';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { StatusUpdateResponseI, UserDetailsApiResponse, UserDetailsByAppointmentDate } from '../interfaces/api-response';
 import { format } from 'date-fns';
+import { Observable } from 'rxjs';
+import { Status } from '../interfaces/AppointmentDetailsI';
 
 @Injectable()
 export class AdminApiService {
 
   email = signal('');
   date = signal('');
+  http = inject(HttpClient);
 
   fetchAppointmentsByEmailResource = httpResource<UserDetailsByAppointmentDate>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
 
@@ -19,6 +22,10 @@ export class AdminApiService {
 
   resetDate() {
     this.date.set('');
+  }
+
+  updateStatus(_id: string, status: Status): Observable<StatusUpdateResponseI> {
+    return this.http.put<StatusUpdateResponseI>('updateStatus', { _id, status });
   }
 
 }

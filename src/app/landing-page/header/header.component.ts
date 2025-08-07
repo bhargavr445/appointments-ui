@@ -6,7 +6,7 @@ import { ModalComponent } from '../../commons/components/modal/modal.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, ModalComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   #vcr = inject(ViewContainerRef);
   appConstants = metaData;
   isOpen = signal(false);
-  #componentRef: ComponentRef<ModalComponent>;
+  // #componentRef: ComponentRef<ModalComponent>;
   isShrunk = false;
   isMobile = false;
 
@@ -41,18 +41,28 @@ export class HeaderComponent implements OnInit {
       })
   }
 
-  navigateTo() {
-    this.#componentRef = this.#vcr.createComponent(ModalComponent, {
-      bindings: [
-        inputBinding('isOpen', signal(true)),
-        outputBinding('close', () => this.onModalClose())
-      ]
-    });
+  navigateToQuote(path: string) {
+    this.#router.navigate([path]);
+    this.isOpen.set(false);
   }
 
-  onModalClose() {
-    console.log('Destroy...');
-    this.#componentRef.destroy()
+  navigateTo() {
+    this.isOpen.set(true);
+    // this.#componentRef = this.#vcr.createComponent(ModalComponent, {
+    //   bindings: [
+    //     inputBinding('isOpen', signal(true)),
+    //     outputBinding('close', () => this.onModalClose())
+    //   ]
+    // });
+  }
+
+  // onModalClose() {
+  //   console.log('Destroy...');
+  //   this.#componentRef.destroy()
+  // }
+
+  close(event) {
+    this.isOpen.set(false);
   }
 
   onMenuOpen() {

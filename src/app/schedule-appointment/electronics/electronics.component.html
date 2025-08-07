@@ -38,7 +38,7 @@
                 placeholder="Last Name"
             >
             <label class="fw-bold" [ngClass]="{ 'invalid-label': numberOfMonitorsAndComputersValidity }"
-                for="numberOfMonitorsAndComputers">Number Of Furniture Pieces *</label>
+                for="numberOfMonitorsAndComputers">Number Of Monitors/Computers *</label>
         </div>
 
         @if (numberOfMonitorsAndComputersValidity) {
@@ -50,15 +50,16 @@
         @let otherElectronicsControl = electronicsForm.get('otherElectronics');
         @let otherElectronicsValidity = otherElectronicsControl.touched && otherElectronicsControl.invalid &&
         otherElectronicsControl.hasError('required');
-        <div class="form-floating">
+        <div>
             <textarea
                 class="form-control" 
+                placeholder="Ex: sound systems, printers etc"
                 id="otherElectronics" 
                 formControlName="otherElectronics" 
-                rows="1">
+                rows="2">
             </textarea>
-            <label class="fw-bold" [ngClass]="{'invalid-label': otherElectronicsValidity}" for="otherElectronics">Other Electronics
-                *</label>
+            <!-- <label class="fw-bold" [ngClass]="{'invalid-label': otherElectronicsValidity}" for="otherElectronics">Other Electronics
+                *</label> -->
         </div>
         @if (otherElectronicsValidity) {
         <div class="apt-validation">This is a required field</div>

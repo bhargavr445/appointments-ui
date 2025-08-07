@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { addDays, format } from 'date-fns';
 import { map, Subject, takeUntil } from 'rxjs';
 import { TimePickerComponent } from "../commons/components/time-picker/time-picker.component";
-import { dateFormatter, ISODateFormatter } from '../commons/constants/app.constants';
+import { dateFormatter, ISODateFormatter, metaData } from '../commons/constants/app.constants';
 import { ServiceTypeList } from '../commons/data/reference-data';
 import * as I from '../commons/interfaces/AppointmentDetailsI';
 import { AppointmentApiService } from '../commons/services/appointment-api.service';
@@ -19,13 +19,11 @@ import { PackingComponent } from "./packing/packing.component";
 import { SpecialItemsComponent } from "./special-items/special-items.component";
 
 @Component({
-  selector: 'app-schedule-appointment',
+  selector: 'schedule-appointment',
   imports: [
     FormsModule, ReactiveFormsModule, FurnitureComponent, AppliancesComponent,
-    TimePickerComponent, NgClass,
-    ApartmentTypeComponent, ElectronicsComponent, BoxesComponent,
-    SpecialItemsComponent, PackingComponent,
-    ContactInfoComponent
+    TimePickerComponent, NgClass, ApartmentTypeComponent, ElectronicsComponent,
+    BoxesComponent, SpecialItemsComponent, PackingComponent, ContactInfoComponent
   ],
   templateUrl: './schedule-appointment.component.html',
   providers: [AppointmentApiService]
@@ -34,6 +32,8 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
 
   appointmentApiService = inject(AppointmentApiService);
   #router = inject(Router);
+  appConstants = metaData;
+
   type = RouteInput.required<AppointmentType>();
   engagedSlotsList = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.value());
   engagedSlotsListIsLoading = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.isLoading());
@@ -43,6 +43,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   scheduleAppointmentError = signal('');
   unsubscribe = new Subject();
   servicesList = ServiceTypeList;
+  derivedServicesList = computed(() => this.deriveList(this.type()));
   removeControls = [
     'specialItems',
     'boxes',
@@ -51,7 +52,13 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
     'furniture',
     'movingFrom',
     'movingTo',
+    'newAddress',
+    'packingHelp'
   ];
+
+  deriveList(type: AppointmentType) {
+    return ServiceTypeList.filter(serviceType => serviceType.key === type);
+  }
 
   ngOnInit(): void {
     this.#createForm();
@@ -82,8 +89,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       note: new FormControl('', { nonNullable: true }),
       appointment: this.#appointForm(),
       currentAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      packingHelp: new FormControl(true, { nonNullable: true, validators: [Validators.required] }),
-      newAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      // newAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     })
     this.#addControlsBasedOnServiceType(this.type());
   }
@@ -91,7 +97,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   #setFurniture(): FormGroup<any> {
     return new FormGroup({
       numberOfFurniturePieces: new FormControl('', { nonNullable: true, validators: [Validators.required] }), // number 
-      listOfLargeItems: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      listOfLargeItems: new FormControl('', { nonNullable: true })
     });
   }
 
@@ -105,7 +111,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
     return new FormGroup({
       numberOfTvs: new FormControl(null, { nonNullable: true, validators: [Validators.required] }), //number
       numberOfMonitorsAndComputers: new FormControl('', { nonNullable: true, validators: [Validators.required] }), // number
-      otherElectronics: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      otherElectronics: new FormControl('', { nonNullable: true }),
     });
   }
 
@@ -129,12 +135,14 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
     this.appointmentForm.addControl('furniture', this.#setFurniture());
     this.appointmentForm.addControl('movingFrom', this.#movingForm());
     this.appointmentForm.addControl('movingTo', this.#movingForm());
+    this.appointmentForm.addControl('newAddress', new FormControl('', { nonNullable: true, validators: [Validators.required] }));
+    this.appointmentForm.addControl('packingHelp', new FormControl(true, { nonNullable: true, validators: [Validators.required] }));
   }
 
   #setBoxes(): FormGroup<any> {
     return new FormGroup({
       noOfBoxes: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
-      // fragile: new FormControl('',  { nonNullable: true, validators: [Validators.required] })
+      containsFragileItems: new FormControl(null,  { nonNullable: true, validators: [Validators.required] })
     })
   }
 

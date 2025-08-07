@@ -43,6 +43,17 @@ export class DateSearchComponent implements OnInit, OnDestroy {
     this.adminApiService.date.set(this.selectedDate);
   }
 
+  updateRecordStatus(): void {
+    this.adminApiService.updateStatus('', 'Done').subscribe(
+      (resp) => { 
+        console.log();
+        this.adminApiService.fetchAppointmentsByDateResource.reload();
+
+       },
+      (error) => { console.log() }
+    )
+  }
+
   ngOnDestroy(): void {
     this.adminApiService.resetDate();
   }

@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'boxes',
@@ -11,5 +11,28 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class BoxesComponent {
 
   @Input() boxesForm: any;
+
+  aptValues = [
+    { label: 'Yes', value: true },
+    { label: 'No', value: false },
+  ];
+
+  onCheckboxChange(value: boolean) {
+    console.log(value);
+    if (value) {
+      this.#addDescControl();
+    } else {
+      this.#removeDescControl();
+    }
+    console.log(this.boxesForm);
+  }
+
+  #addDescControl() {
+    this.boxesForm.addControl('fragileItemsDesc', new FormControl(''));
+  }
+
+  #removeDescControl() {
+    this.boxesForm.removeControl('fragileItemsDesc')
+  }
 
 }

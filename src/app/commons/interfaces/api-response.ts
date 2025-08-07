@@ -9,5 +9,6 @@ export interface ApiResponseI<T> {
 export type UserDetailsApiResponse = ApiResponseI<UserDetailsBasedOnEmail>;
 export type UserDetailsByAppointmentDate = ApiResponseI<UserDetailsBasedOnDateI[]>;
 export type ScheduledTimeSlotsApiResponseI = ApiResponseI<CheckAvailableDatesI[]>;
+export type StatusUpdateResponseI = ApiResponseI<string>;
 
 

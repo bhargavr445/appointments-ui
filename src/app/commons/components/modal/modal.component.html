@@ -3,25 +3,26 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
+
+
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <ng-content select="[header]"></ng-content>
                 <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
             </div>
 
+
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <ng-content select="[body]"></ng-content>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <ng-content select="[footer]"></ng-content>
             </div>
 
         </div>
     </div>
 </div>
 
-<!-- Backdrop -->
 @if (isOpneL()) {
 <div class="modal-backdrop fade show" style="z-index: 1050;"></div>
 }
