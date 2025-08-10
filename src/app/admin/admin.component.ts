@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { PinService } from '../pin/pin.service';
+import { metaData } from '../commons/constants/app.constants';
 
 @Component({
   selector: 'app-admin',
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   template: `
   <div class="info_container moving_container">
-  <ul class="nav nav-tabs">
+    @if(enteredPin()) {
+        <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link" routerLink="/admin/date-search" routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">
@@ -20,7 +23,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
       </a>
     </li>
   </ul>
-
+    }
   <!-- Tab content area -->
   <div class="mt-3">
     <router-outlet></router-outlet>
@@ -28,5 +31,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 </div>`
 })
 export class AdminComponent {
+
+  pinService = inject(PinService);
+  enteredPin = computed(() => this.pinService.computedEmployeeInfo()?.pin);
 
 }

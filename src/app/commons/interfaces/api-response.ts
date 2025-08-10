@@ -1,3 +1,4 @@
+import { EmployeeI } from "./employee";
 import { CheckAvailableDatesI, SlotI } from "./slotI";
 import { UserDetailsBasedOnDateI, UserDetailsBasedOnEmail } from "./userI";
 
@@ -10,5 +11,6 @@ export type UserDetailsApiResponse = ApiResponseI<UserDetailsBasedOnEmail>;
 export type UserDetailsByAppointmentDate = ApiResponseI<UserDetailsBasedOnDateI[]>;
 export type ScheduledTimeSlotsApiResponseI = ApiResponseI<CheckAvailableDatesI[]>;
 export type StatusUpdateResponseI = ApiResponseI<string>;
+export type EmployeeResponseI = ApiResponseI<EmployeeI>;
 
 
