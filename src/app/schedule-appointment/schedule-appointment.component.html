@@ -23,6 +23,52 @@
           <!-- <div class="row mb-4"> -->
             <!-- Moving From -->
 
+             <!-- Appointment Group: Date -->
+          <div formGroupName="appointment">
+            <div class="col-12 col-md-4 mb-3">
+              @let dateControl = appointmentForm.get('appointment.date');
+              @let dateValidity = dateControl.touched && dateControl.invalid && dateControl.hasError('required');
+              <div class="form-floating ">
+
+                <input (keydown)="preventTyping($event)" [min]="minDate" type="date" class="form-control apt-form-control" id="date"
+                  formControlName="date">
+                <label class="fw-bold" [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
+                  *</label>
+              </div>
+              @if (dateValidity) {
+              <div class="apt-validation">This is a required field</div>
+              }
+            </div>
+
+            <!-- Appointment Group: Time -->
+            <div class="col-12 col-md-12 mb-3">
+
+              @let timeControl = appointmentForm.get('appointment.time');
+              @let timeControlValidity = timeControl.touched && timeControl.invalid && timeControl.hasError('required');
+              <label [ngClass]="{'invalid-label': timeControlValidity}" for="time" class="form-label test-clip">Appointment Time
+                *</label>
+              @if (timeControlValidity) {
+              <div class="apt-validation">This is a required field</div>
+              }
+              @if(engagedSlotsListIsLoading()) {
+                <div class="row g-3 mt-4">
+                  @for (item of [1,2,3,4]; track $index) {
+                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                      <div class="skeleton-slot"></div>
+                    </div>
+                  }
+                </div>
+              } @else {
+              <app-time-picker 
+                [selectedDate]="appointmentForm.get('appointment').get('date').value"
+                [bookedSlots]="engagedSlotsList()" 
+                (selectedTimeEmitter)="selectedTime($event)"
+                (touchedEmitter)="touchedEvent()" 
+                />
+              }
+            </div>
+          </div>
+
                       <!-- Service Type -->
           <div class="col-12 col-md-4 mb-3">
             @let serviceTypeControl = appointmentForm.get('serviceType');
@@ -165,52 +211,6 @@
             <special-items [specialItemsForm]="appointmentForm.get('specialItems')" />
           </div>
           }
-
-          <!-- Appointment Group: Date -->
-          <div formGroupName="appointment">
-            <div class="col-12 col-md-4 mb-3">
-              @let dateControl = appointmentForm.get('appointment.date');
-              @let dateValidity = dateControl.touched && dateControl.invalid && dateControl.hasError('required');
-              <div class="form-floating ">
-
-                <input (keydown)="preventTyping($event)" [min]="minDate" type="date" class="form-control apt-form-control" id="date"
-                  formControlName="date">
-                <label class="fw-bold" [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
-                  *</label>
-              </div>
-              @if (dateValidity) {
-              <div class="apt-validation">This is a required field</div>
-              }
-            </div>
-
-            <!-- Appointment Group: Time -->
-            <div class="col-12 col-md-12 mb-3">
-
-              @let timeControl = appointmentForm.get('appointment.time');
-              @let timeControlValidity = timeControl.touched && timeControl.invalid && timeControl.hasError('required');
-              <label [ngClass]="{'invalid-label': timeControlValidity}" for="time" class="form-label test-clip">Appointment Time
-                *</label>
-              @if (timeControlValidity) {
-              <div class="apt-validation">This is a required field</div>
-              }
-              @if(engagedSlotsListIsLoading()) {
-                <div class="row g-3 mt-4">
-                  @for (item of [1,2,3,4]; track $index) {
-                    <div class="col-6 col-md-4 col-lg-3 mb-3">
-                      <div class="skeleton-slot"></div>
-                    </div>
-                  }
-                </div>
-              } @else {
-              <app-time-picker 
-                [selectedDate]="appointmentForm.get('appointment').get('date').value"
-                [bookedSlots]="engagedSlotsList()" 
-                (selectedTimeEmitter)="selectedTime($event)"
-                (touchedEmitter)="touchedEvent()" 
-                />
-              }
-            </div>
-          </div>
 
           <!-- Submit Button -->
           <div class="col-12 text-end">
