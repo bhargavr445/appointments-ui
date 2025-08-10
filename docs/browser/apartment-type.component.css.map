@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/schedule-appointment/apartment-type/apartment-type.component.scss"],
-  "sourcesContent": [" label {\n    margin-right: 10px;\n }"],
-  "mappings": ";AAAC;AACG,gBAAA;;",
-  "names": []
-}

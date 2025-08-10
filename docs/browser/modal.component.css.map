@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/commons/components/modal/modal.component.scss"],
-  "sourcesContent": [".modal {\n  background: #00000094; /* No default background */\n}\n\n.modal-backdrop {\n  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */\n}\n\nbody.modal-open {\n  overflow: hidden; /* Prevent background scrolling */\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,cAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGF,CAAA;AACE,oBAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGF,IAAA,CAAA;AACE,YAAA;;",
-  "names": []
-}
