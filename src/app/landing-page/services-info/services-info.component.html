@@ -9,33 +9,32 @@
 </section>
 
 <div class="container mar-t-b">
-  <div class="row g-4">
+  <div class="row g-4 justify-content-center"> <!-- added justify-content-center -->
 
-        <!-- Column 1 -->
-        <div class="col-12 col-md-12 col-lg-4">
-          <section class=" text-white pad-t-b-10 section_main">
-            <div class="text-center">
-              <div style="margin-top: 10px; margin-bottom: 20px;">
-                <h2 class="fw-bold mb-4 test-clip">{{appConstants.bookingInfo}}</h2>
-              </div>
-          
-              <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap mar-t-b">
-                <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/junk">
-                  {{appConstants.NEED_JUNK_REMOVED}}
-                </button>
-                <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/schedule/m">
-                  {{appConstants.NEED_MOVING_HELP}}
-                </button>
-              </div>
-          
-              <form class="d-flex flex-nowrap flex-sm-nowrap justify-content-center gap-2 mar-t-b">
-                <input type="text" class="form-control w-auto" placeholder="Enter ZIP code" style="min-width: 200px;" />
-                <button type="submit" class="btn btn-primary px-4">Search</button>
-              </form>
-          
-            </div>
-          </section>
+    <!-- Column 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <section class="text-white pad-t-b-10 section_main">
+        <div class="text-center">
+          <div style="margin-top: 10px; margin-bottom: 20px;">
+            <h2 class="fw-bold mb-4 test-clip">{{appConstants.bookingInfo}}</h2>
+          </div>
+      
+          <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap mar-t-b">
+            <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/junk">
+              {{appConstants.NEED_JUNK_REMOVED}}
+            </button>
+            <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/schedule/m">
+              {{appConstants.NEED_MOVING_HELP}}
+            </button>
+          </div>
+      
+          <form class="d-flex flex-nowrap flex-sm-nowrap justify-content-center gap-2 mar-t-b">
+            <input type="text" class="form-control w-auto" placeholder="Enter ZIP code" style="min-width: 200px;" />
+            <button type="submit" class="btn btn-primary px-4">Search</button>
+          </form>
         </div>
+      </section>
+    </div>
 
     <!-- Column 2 -->
     <div class="col-12 col-md-6 col-lg-4">
@@ -44,27 +43,25 @@
           <div style="margin-top: 10px; margin-bottom: 20px;">
             <h2 class="fw-bold mb-4 test-clip">{{appConstants.services}}</h2>
           </div>
-          <!-- add 2 cards here -->
+
           <div class="row justify-content-center g-3">
             <!-- Junk Removal -->
             <div class="col-6">
-              <div class="card service-card shadow-sm h-100 text-center ">
+              <div class="card service-card shadow-sm h-100 text-center">
                 <div class="card-body">
                   <img src="assets/images/junk.png" alt="Junk Removal" class="service-icon" style="mix-blend-mode: multiply;" />
                   <h6 class="fw-bold">{{appConstants.Junk_Removal}}</h6>
-                  <p class="text-muted"> {{appConstants.Junk_removal_info}}</p>
+                  <p class="text-muted">{{appConstants.Junk_removal_info}}</p>
                 </div>
               </div>
             </div>
       
             <div class="col-6">
-              <div class="card service-card shadow-sm h-100 text-center ">
+              <div class="card service-card shadow-sm h-100 text-center">
                 <div class="card-body">
                   <img src="assets/images/mover.png" alt="Moving Help" class="service-icon" />
                   <h6 class="fw-bold">{{appConstants.Moving_Help}}</h6>
-                  <p class="text-muted">
-                    {{appConstants.Moving_Help_info}}
-                  </p>
+                  <p class="text-muted">{{appConstants.Moving_Help_info}}</p>
                 </div>
               </div>
             </div>
@@ -72,6 +69,9 @@
         </div>
       </section>
     </div>
+
+ 
+
 
     <!-- Column 3 -->
     <!-- <div class="col-12 col-md-6 col-lg-4">
@@ -95,9 +95,9 @@
       </section>
     </div> -->
 
+ </div>
 
-
-  </div>
+  
 </div>
 
 <!-- <section class=" text-white pad-t-b-20">
