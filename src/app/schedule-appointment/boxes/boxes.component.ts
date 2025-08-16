@@ -5,8 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'boxes',
   imports: [ReactiveFormsModule, NgClass],
-  templateUrl: './boxes.component.html',
-  styleUrl: './boxes.component.scss'
+  templateUrl: './boxes.component.html'
 })
 export class BoxesComponent {
 

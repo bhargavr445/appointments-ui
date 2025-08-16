@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'furniture',
   imports: [ReactiveFormsModule, FormsModule, NgClass],
-  templateUrl: './furniture.component.html',
-  styleUrl: './furniture.component.scss'
+  templateUrl: './furniture.component.html'
 })
 export class FurnitureComponent {
 

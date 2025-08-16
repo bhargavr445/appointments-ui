@@ -5,8 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'electronics',
   imports: [ReactiveFormsModule, NgClass],
-  templateUrl: './electronics.component.html',
-  styleUrl: './electronics.component.scss'
+  templateUrl: './electronics.component.html'
 })
 export class ElectronicsComponent {
 

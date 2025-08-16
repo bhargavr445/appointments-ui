@@ -7,8 +7,7 @@ import { PhoneNumberMaskDirective } from '../../phone-number-mask.directive';
 @Component({
   selector: 'contact-info',
   imports: [ReactiveFormsModule, NgClass, PhoneNumberMaskDirective],
-  templateUrl: './contact-info.component.html',
-  styleUrl: './contact-info.component.scss'
+  templateUrl: './contact-info.component.html'
 })
 export class ContactInfoComponent {
 

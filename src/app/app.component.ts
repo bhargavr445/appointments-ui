@@ -5,9 +5,14 @@ import { HeaderComponent } from "./landing-page/header/header.component";
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FooterComponent, HeaderComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `
+      <app-header />
+      <div class="main_routing_section">
+        <router-outlet />
+      </div>
+      <app-footer />
+  `
 })
 export class AppComponent {
-  
+
 }

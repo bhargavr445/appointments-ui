@@ -4,8 +4,7 @@ import { metaData } from '../../commons/constants/app.constants';
 @Component({
   selector: 'app-footer',
   imports: [],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
   appConstants = metaData;

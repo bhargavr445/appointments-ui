@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { EmployeeI } from '../commons/interfaces/employee';
-import { EmployeeResponseI } from '../commons/interfaces/api-response';
 import { Observable } from 'rxjs';
+import { EmployeeResponseI } from '../commons/interfaces/api-response';
+import { EmployeeI } from '../commons/interfaces/employee';
 
 @Injectable({
   providedIn: 'root'

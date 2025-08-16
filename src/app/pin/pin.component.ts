@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalComponent } from "../commons/components/modal/modal.component";
-import { PinService } from './pin.service';
 import { Router } from '@angular/router';
+import { ModalComponent } from "../commons/components/modal/modal.component";
 import { EmployeeResponseI } from '../commons/interfaces/api-response';
+import { PinService } from './pin.service';
 
 @Component({
   selector: 'app-pin',
@@ -23,7 +23,6 @@ export class PinComponent {
   }
 
   continueToAdminSection() {
-
     this.pinService.getEmployeeByPin(this.pinControl.getRawValue()).subscribe(
       (response: EmployeeResponseI) => {
         this.pinService.setEmployeeInfo(response.data);
@@ -32,11 +31,8 @@ export class PinComponent {
       (error) => {
         this.pinService.setEmployeeInfo(null);
         this.router.navigate(['home']);
-
       }
-
     )
-
   }
 
 }
