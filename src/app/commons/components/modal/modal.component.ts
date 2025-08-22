@@ -1,7 +1,8 @@
 import { NgStyle } from '@angular/common';
-import { Component, linkedSignal, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, linkedSignal, model, output } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-modal',
   imports: [NgStyle],
   templateUrl: './modal.component.html',

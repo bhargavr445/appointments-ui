@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, OnDestroy, OnInit, input as RouteInput, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, input as RouteInput, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { addDays, format } from 'date-fns';
@@ -19,6 +19,7 @@ import { PackingComponent } from "./packing/packing.component";
 import { SpecialItemsComponent } from "./special-items/special-items.component";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'schedule-appointment',
   imports: [
     FormsModule, ReactiveFormsModule, FurnitureComponent, AppliancesComponent,

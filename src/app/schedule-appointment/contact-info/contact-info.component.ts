@@ -1,10 +1,11 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TelephonePipe } from '../../telephone.pipe';
 import { PhoneNumberMaskDirective } from '../../phone-number-mask.directive';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'contact-info',
   imports: [ReactiveFormsModule, NgClass, PhoneNumberMaskDirective],
   templateUrl: './contact-info.component.html'

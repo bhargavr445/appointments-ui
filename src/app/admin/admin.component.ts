@@ -1,9 +1,10 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PinService } from '../pin/pin.service';
 import { metaData } from '../commons/constants/app.constants';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-admin',
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   template: `

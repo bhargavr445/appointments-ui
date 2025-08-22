@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'special-items',
   imports: [ReactiveFormsModule, NgClass],
   templateUrl: './special-items.component.html'

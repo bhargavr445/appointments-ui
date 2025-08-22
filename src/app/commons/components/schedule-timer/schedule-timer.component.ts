@@ -1,7 +1,8 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { timeSlots } from '../../constants/app.constants';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-schedule-timer',
   imports: [],
   template: `<span>{{derivedLabel().label}}</span>`

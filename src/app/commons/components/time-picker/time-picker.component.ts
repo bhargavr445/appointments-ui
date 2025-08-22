@@ -1,9 +1,10 @@
-import { Component, input, linkedSignal, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, linkedSignal, output } from '@angular/core';
 import { timeSlots } from '../../constants/app.constants';
 import { format, parseISO, startOfDay, isEqual } from 'date-fns';
 import { NgClass } from '@angular/common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-time-picker',
   imports: [NgClass],
   templateUrl: './time-picker.component.html',

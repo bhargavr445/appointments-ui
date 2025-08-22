@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { addDays, format } from 'date-fns';
 import { map } from 'rxjs';
@@ -7,6 +7,7 @@ import { AdminApiService } from '../../commons/services/admin-api.service';
 import { UserDetailsComponent } from "../user-details/user-details.component";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-date-search',
   imports: [FormsModule, ReactiveFormsModule, UserDetailsComponent],
   templateUrl: './date-search.component.html',

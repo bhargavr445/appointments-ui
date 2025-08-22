@@ -1,4 +1,4 @@
-import { Component, ComponentRef, HostListener, inject, inputBinding, OnInit, outputBinding, signal, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentRef, HostListener, inject, inputBinding, OnInit, outputBinding, signal, ViewContainerRef } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { metaData } from '../../commons/constants/app.constants';
 import { filter } from 'rxjs';
@@ -8,7 +8,8 @@ import { ModalComponent } from '../../commons/components/modal/modal.component';
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive, ModalComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
 
@@ -17,28 +18,28 @@ export class HeaderComponent implements OnInit {
   appConstants = metaData;
   isOpen = signal(false);
   // #componentRef: ComponentRef<ModalComponent>;
-  isShrunk = false;
-  isMobile = false;
+  isShrunk = signal(false);
+  #isMobile = false;
 
   @HostListener('window:scroll', [])
   onScroll(): void {
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
-      this.isShrunk = window.scrollY > 30; // more sensitive for mobile
+      this.isShrunk.set(window.scrollY > 30); // more sensitive for mobile
     } else {
-      this.isShrunk = window.scrollY > 50;
+      this.isShrunk.set(window.scrollY > 50);
     }
   }
 
   ngOnInit(): void {
-    this.isMobile = window.innerWidth <= 768;
+    this.#isMobile = window.innerWidth <= 768;
 
-    this.#router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((navEvent) => {
-        console.log(navEvent);
-      })
+    // this.#router.events
+    //   .pipe(filter((event) => event instanceof NavigationEnd))
+    //   .subscribe((navEvent) => {
+    //     console.log(navEvent);
+    //   })
   }
 
   navigateToQuote(path: string) {
