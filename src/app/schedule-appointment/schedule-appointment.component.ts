@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { addDays, format } from 'date-fns';
 import { map, Subject, takeUntil } from 'rxjs';
-import { TimePickerComponent } from "../commons/components/time-picker/time-picker.component";
 import { dateFormatter, ISODateFormatter, metaData } from '../commons/constants/app.constants';
 import { ServiceTypeList } from '../commons/data/reference-data';
 import * as I from '../commons/interfaces/AppointmentDetailsI';
@@ -23,7 +22,7 @@ import { SpecialItemsComponent } from "./special-items/special-items.component";
   selector: 'schedule-appointment',
   imports: [
     FormsModule, ReactiveFormsModule, FurnitureComponent, AppliancesComponent,
-    TimePickerComponent, NgClass, ApartmentTypeComponent, ElectronicsComponent,
+    NgClass, ApartmentTypeComponent, ElectronicsComponent,
     BoxesComponent, SpecialItemsComponent, PackingComponent, ContactInfoComponent
   ],
   templateUrl: './schedule-appointment.component.html',
