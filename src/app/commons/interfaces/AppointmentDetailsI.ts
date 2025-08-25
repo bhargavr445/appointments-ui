@@ -55,5 +55,5 @@ export interface AppointmentScheduleI {
   
   export interface ApointmentSlotI {
     date: FormControl<string>
-    time: FormControl<string>
+    // time: FormControl<string>
   }

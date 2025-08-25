@@ -31,13 +31,13 @@ import { SpecialItemsComponent } from "./special-items/special-items.component";
 })
 export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
 
-  appointmentApiService = inject(AppointmentApiService);
+  #appointmentApiService = inject(AppointmentApiService);
   #router = inject(Router);
   appConstants = metaData;
 
   type = RouteInput.required<AppointmentType>();
-  engagedSlotsList = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.value());
-  engagedSlotsListIsLoading = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.isLoading());
+  engagedSlotsList = computed(() => this.#appointmentApiService.availableSlotsForSelectedDate.value());
+  engagedSlotsListIsLoading = computed(() => this.#appointmentApiService.availableSlotsForSelectedDate.isLoading());
   appointmentForm: FormGroup;
   minDate = format(addDays(new Date(), 0), ISODateFormatter);
   scheduleApointmentApiProgress = signal(false);
@@ -67,7 +67,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       map(v => this.#dateFormatter(v)),
       takeUntil(this.unsubscribe)
     ).subscribe((v) => {
-      this.appointmentApiService.selectedDate.set(v)
+      this.#appointmentApiService.selectedDate.set(v)
     });
   }
 
@@ -181,7 +181,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   #appointForm(): FormGroup<any> {
     return new FormGroup<I.ApointmentSlotI>({
       date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
-      time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      // time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     })
   }
 
@@ -201,7 +201,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
       payload.appointment.date = this.#dateFormatter(payload.appointment.date);
       payload.email = payload.email.toLocaleLowerCase();
       delete payload['contactInfo'];
-      this.appointmentApiService.scheduleAppointment(payload).subscribe({
+      this.#appointmentApiService.scheduleAppointment(payload).subscribe({
         next: (response) => this.#afterSchedulingApointment(response),
         error: (error) => this.#handleError(error)
       })
@@ -221,7 +221,7 @@ export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
   }
 
   #afterSchedulingApointment(_): void {
-    this.appointmentApiService.availableSlotsForSelectedDate.reload();
+    this.#appointmentApiService.availableSlotsForSelectedDate.reload();
     this.appointmentForm.reset();
     this.scheduleApointmentApiProgress.set(false);
     this.#router.navigate(['confirm']);

@@ -20,6 +20,8 @@
       <form [formGroup]="appointmentForm">
         <div class="row">
 
+
+
           <!-- <div class="row mb-4"> -->
             <!-- Moving From -->
 
@@ -43,7 +45,9 @@
             <!-- Appointment Group: Time -->
             <div class="col-12 col-md-12 mb-3">
 
-              @let timeControl = appointmentForm.get('appointment.time');
+              <!-- <input type="file" accept="image/*" capture="environment"> -->
+
+              <!-- @let timeControl = appointmentForm.get('appointment.time');
               @let timeControlValidity = timeControl.touched && timeControl.invalid && timeControl.hasError('required');
               <label [ngClass]="{'invalid-label': timeControlValidity}" for="time" class="form-label test-clip">Appointment Time
                 *</label>
@@ -65,7 +69,7 @@
                 (selectedTimeEmitter)="selectedTime($event)"
                 (touchedEmitter)="touchedEvent()" 
                 />
-              }
+              } -->
             </div>
           </div>
 
@@ -168,7 +172,7 @@
             messageControl.hasError('required');
             <div class="form-floating">
               <textarea class="form-control" id="note" formControlName="note" rows="1"></textarea>
-              <label class="fw-bold" [ngClass]="{'invalid-label': messageValidity}" for="note">Notes *</label>
+              <label class="fw-bold" [ngClass]="{'invalid-label': messageValidity}" for="note">Notes</label>
             </div>
             @if (messageValidity) {
             <div class="apt-validation">This is a required field</div>

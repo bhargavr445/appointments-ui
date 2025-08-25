@@ -6,7 +6,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'apartment-type',
   imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './apartment-type.component.html',
-  styleUrl: './apartment-type.component.scss'
+  styles: ` label {
+    margin-right: 10px;
+ }`
 })
 export class ApartmentTypeComponent {
 

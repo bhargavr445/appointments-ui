@@ -50,6 +50,11 @@ input.ng-invalid.ng-touched {
   transition: transform 0.9s;
 }
 
+textarea.ng-invalid.ng-touched {
+  border: 2px solid rgb(244, 122, 122);
+  transition: transform 0.9s;
+}
+
 .pad-l-r-0 {
   padding-left: 0;
   padding-right: 0;
