@@ -1,6 +1,5 @@
 import { Router, Routes, UrlTree } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { PinComponent } from './pin/pin.component';
 import { inject } from '@angular/core';
 import { PinService } from './pin/pin.service';
@@ -8,7 +7,7 @@ import { PinService } from './pin/pin.service';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'confirm', component: ConfirmationComponent },
+    { path: 'confirm', loadComponent: () => import('./confirmation/confirmation.component').then(c => c.ConfirmationComponent) },
     { path: 'about', loadComponent: () => import('./about/about.component').then(c => c.AboutComponent) },
     { path: 'junk', loadComponent: () => import('./junk/junk.component').then(c => c.JunkComponent) },
     { path: 'faq', loadComponent: () => import('./faq/faq.component').then(c => c.FaqComponent) },
