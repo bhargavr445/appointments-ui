@@ -10,7 +10,7 @@ export class AdminApiService {
 
   email = signal('');
   date = signal('');
-  http = inject(HttpClient);
+  #http = inject(HttpClient);
 
   fetchAppointmentsByEmailResource = httpResource<UserDetailsByAppointmentDate>(() => this.email() ? `searchByEmail?email=${this.email()}`: undefined);
 
@@ -25,7 +25,7 @@ export class AdminApiService {
   }
 
   updateStatus(_id: string, status: Status): Observable<StatusUpdateResponseI> {
-    return this.http.put<StatusUpdateResponseI>('updateStatus', { _id, status });
+    return this.#http.put<StatusUpdateResponseI>('updateStatus', { _id, status });
   }
 
 }

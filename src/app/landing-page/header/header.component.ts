@@ -14,7 +14,7 @@ import { ModalComponent } from '../../commons/components/modal/modal.component';
 export class HeaderComponent implements OnInit {
 
   #router = inject(Router);
-  #vcr = inject(ViewContainerRef);
+  // #vcr = inject(ViewContainerRef);
   appConstants = metaData;
   isOpen = signal(false);
   // #componentRef: ComponentRef<ModalComponent>;

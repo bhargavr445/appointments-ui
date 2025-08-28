@@ -33,7 +33,7 @@ import { metaData } from '../commons/constants/app.constants';
 })
 export class AdminComponent {
 
-  pinService = inject(PinService);
-  enteredPin = computed(() => this.pinService.computedEmployeeInfo()?.pin);
+  #pinService = inject(PinService);
+  enteredPin = computed(() => this.#pinService.computedEmployeeInfo()?.pin);
 
 }

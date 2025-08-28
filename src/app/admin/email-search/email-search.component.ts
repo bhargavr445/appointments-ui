@@ -12,13 +12,13 @@ import { UserDetailsComponent } from "../user-details/user-details.component";
 })
 export class EmailSearchComponent {
 
-  adminApiService = inject(AdminApiService);
+  #adminApiService = inject(AdminApiService);
   email = new FormControl('');
-  selectedEmailRecord = computed(() => this.adminApiService.fetchAppointmentsByEmailResource.value()?.data);
-  userDetailsListLoading = computed(() => this.adminApiService.fetchAppointmentsByEmailResource.isLoading());
+  selectedEmailRecord = computed(() => this.#adminApiService.fetchAppointmentsByEmailResource.value()?.data);
+  userDetailsListLoading = computed(() => this.#adminApiService.fetchAppointmentsByEmailResource.isLoading());
 
   searchByEmail(): void {
-    this.adminApiService.email.set(this.email.getRawValue());
+    this.#adminApiService.email.set(this.email.getRawValue());
   }
 
 }

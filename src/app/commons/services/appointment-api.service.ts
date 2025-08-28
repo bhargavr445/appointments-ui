@@ -8,7 +8,7 @@ import { CheckAvailableDatesI } from '../interfaces/slotI';
 @Injectable()
 export class AppointmentApiService {
 
-  http = inject(HttpClient);
+  #http = inject(HttpClient);
 
   selectedDate = signal(format(new Date(), "MM/dd/yyyy"));
 
@@ -24,7 +24,7 @@ export class AppointmentApiService {
   );
 
   scheduleAppointment(payload) {
-    return this.http.post('schedule', payload);
+    return this.#http.post('schedule', payload);
   }
 }
 

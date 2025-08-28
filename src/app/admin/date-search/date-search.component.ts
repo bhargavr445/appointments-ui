@@ -15,15 +15,15 @@ import { UserDetailsComponent } from "../user-details/user-details.component";
 })
 export class DateSearchComponent implements OnInit, OnDestroy {
 
-  adminApiService = inject(AdminApiService);
+  #adminApiService = inject(AdminApiService);
   date = new FormControl(format(new Date(), ISODateFormatter));
   minDate = format(addDays(new Date(), 0), ISODateFormatter);
-  userDetailsList = computed(() => this.adminApiService.fetchAppointmentsByDateResource.value()?.data);
-  userDetailsListLoading = computed(() => this.adminApiService.fetchAppointmentsByDateResource.isLoading());
+  userDetailsList = computed(() => this.#adminApiService.fetchAppointmentsByDateResource.value()?.data);
+  userDetailsListLoading = computed(() => this.#adminApiService.fetchAppointmentsByDateResource.isLoading());
   selectedDate = '';
 
   ngOnInit(): void {
-    this.adminApiService.setDate();
+    this.#adminApiService.setDate();
     this.date.valueChanges.pipe(map(v => this.#dateFormatter(v))).subscribe((v) => {
       this.selectedDate = v;
     });
@@ -41,14 +41,14 @@ export class DateSearchComponent implements OnInit, OnDestroy {
   }
 
   searchByDate(): void {
-    this.adminApiService.date.set(this.selectedDate);
+    this.#adminApiService.date.set(this.selectedDate);
   }
 
   updateRecordStatus(): void {
-    this.adminApiService.updateStatus('', 'Done').subscribe(
+    this.#adminApiService.updateStatus('', 'Done').subscribe(
       (resp) => { 
         console.log();
-        this.adminApiService.fetchAppointmentsByDateResource.reload();
+        this.#adminApiService.fetchAppointmentsByDateResource.reload();
 
        },
       (error) => { console.log() }
@@ -56,7 +56,7 @@ export class DateSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.adminApiService.resetDate();
+    this.#adminApiService.resetDate();
   }
 
 }
