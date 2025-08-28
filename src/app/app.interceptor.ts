@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 export const appInterceptor: HttpInterceptorFn = (req, next) => {
   const urlPrefix = environment.apiUrl;
