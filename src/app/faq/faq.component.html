@@ -1,0 +1,17 @@
+<section class="faq">
+    <h1>❓ Frequently Asked Questions (FAQ)</h1>
+    @for (faq of faqs; track $index; let i = $index) {
+    <div class="faq-item">
+        <button class="question" (click)="toggle(i)">
+            {{ i + 1 }}. {{ faq.question }}
+            <span class="icon">{{ activeIndex === i ? '−' : '+' }}</span>
+        </button>
+        <div class="answer" [class.active]="activeIndex === i">
+            
+            @for (line of faq.answerLines; track line) {
+            <p>{{ line }}</p>
+            }
+        </div>
+    </div>
+    }
+</section>

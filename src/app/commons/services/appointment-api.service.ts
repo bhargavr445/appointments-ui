@@ -12,12 +12,14 @@ export class AppointmentApiService {
 
   selectedDate = signal(format(new Date(), "MM/dd/yyyy"));
 
-  availableSlotsForSelectedDate = httpResource<string[]>(() => ({
-    url: `http://localhost:3000/api/checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`,
-    method: 'GET',
-  }),
-    { 
-      defaultValue: [], 
+  availableSlotsForSelectedDate = httpResource<string[]>(() => `checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`
+  //   ({
+  //   url: `checkIfAppointIsAlreadySchedudForToday?date=${this.selectedDate()}`,
+  //   method: 'GET',
+  // })
+  ,
+    {
+      defaultValue: [],
       parse: (data: ScheduledTimeSlotsApiResponseI) => {
         const allocatedTimeSlots: SlotI[] = data.data.filter((slot: SlotI) => slot.status === 'confirmed');
         const timeList = allocatedTimeSlots.map((slot: SlotI) => slot.time);
@@ -27,7 +29,7 @@ export class AppointmentApiService {
   );
 
   scheduleAppointment(payload) {
-    return this.http.post('http://localhost:3000/api/schedule', payload);
+    return this.http.post('schedule', payload);
   }
 }
 

@@ -19,6 +19,7 @@ export class DateSearchComponent implements OnInit {
   date = new FormControl(format(new Date(), ISODateFormatter));
   minDate = format(addDays(new Date(), 0), ISODateFormatter);
   userDetailsList = computed(() => this.adminApiService.fetchAppointmentsByDateResource.value()?.data);
+  userDetailsListLoading = computed(() => this.adminApiService.fetchAppointmentsByDateResource.isLoading());
   selectedDate = '';
 
   ngOnInit(): void {

@@ -8,6 +8,32 @@ export interface UserDetails {
   lastName: string;
   phoneNumber: string;
   updatedAt: Date;
+  note: string;
+  appliances: { numberOfLargeAppliances: number};
+  boxes: {noOfBoxes: number};
+  specialItems: {largeOrHeavyItems: string};
+  currentAddress: string;
+  newAddress: string;
+  electronics: {
+    numberOfMonitorsAndComputers: number
+                numberOfTvs: number
+                otherElectronics: string,
+  }
+  furniture: {numberOfFurniturePieces: number,
+                listOfLargeItems: string,}
+  movingFrom: {
+    floorNumber?: number,
+                apartmentType: string,
+                elevator?: boolean,
+  };
+  movingTo: {
+    floorNumber?: number,
+                apartmentType: string,
+                elevator?: boolean,
+  }
+
+
+
 }
 
 export interface Appointment {
