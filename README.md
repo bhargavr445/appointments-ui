@@ -3,6 +3,8 @@ ng build --configuration production --output-path docs --base-href "/" --prerend
 
 # above command will generate following folder  `docs -> browser`, make sure to move all the [files/folders] from `browser` folder to under `docs` folder`
 
+# git cmd
+git pull origin zone-less-20.2
 
 
 # open this link 
