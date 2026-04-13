@@ -5,7 +5,7 @@ import { timeSlots } from '../../constants/app.constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-schedule-timer',
   imports: [],
-  template: `<span>{{derivedLabel().label}}</span>`
+  template: `<span>{{derivedLabel()?.label}}</span>`
 })
 export class ScheduleTimerComponent {
 
