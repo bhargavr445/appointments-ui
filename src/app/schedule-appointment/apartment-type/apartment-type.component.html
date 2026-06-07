@@ -1,0 +1,117 @@
+<!-- <form [formGroup]="apartmentTypeForm">
+  <div class="d-flex flex-column flex-md-row gap-3">
+    @for (option of housingTypes; track option) {
+    <div class="form-check form-check-inline">
+      <input 
+        class="form-check-input" 
+        type="radio" 
+        [id]="option.value" 
+        [value]="option.value"
+        (change)="onCheckboxChange(option.value)" 
+        formControlName="apartmentType" 
+      />
+      <label class="form-check-label" [for]="option.value">
+        {{ option.label }}
+      </label>
+    </div>
+    }
+  </div>
+
+  @if (apartmentTypeForm.get('apartmentType').value === 'APT') {
+    <div class="col-12 col-md-4 mb-3">
+    <label class="fw-bold" for="note">Elevator:</label>
+    @for (option of aptValues; track option) {
+      <div class="form-check form-check-inline">
+      <input 
+        class="form-check-input" 
+        type="radio" 
+        [id]="option.value" 
+        [value]="option.value"
+        formControlName="elevator"
+      />
+      <label class="form-check-label" [for]="option.value">
+        {{ option.label }}
+      </label>
+    </div>
+    }
+    </div>
+    <div class="col-12 col-md-4 mb-3">
+      <div class="form-floating">
+        <select class="form-select" id="floatingSelect" formControlName="floorNumber"
+          aria-label="Select Floor Number select">
+          <option selected>Select Floor Number</option>
+          @for (item of floorsList; track item.key) {
+          <option [value]="item">{{item}}</option>
+          }
+        </select>
+        <label class="fw-bold" for="floatingSelect">Select Floor Number</label>
+      </div>
+    </div>
+  }
+</form> -->
+
+<form [formGroup]="apartmentTypeForm" class="w-100">
+
+  <!-- Apartment Type Options -->
+  <div class="d-flex flex-column flex-md-row flex-wrap gap-3 mb-3">
+    @for (option of housingTypes; track option) {
+      <div class="form-check">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          [id]="option.value" 
+          [value]="option.value"
+          formControlName="apartmentType"
+          (change)="onCheckboxChange(option.value)" 
+        />
+        <label class="form-check-label ms-1" [for]="option.value">
+          {{ option.label }}
+        </label>
+      </div>
+    }
+  </div>
+
+  <!-- Show Elevator and Floor Number ONLY if Apartment is selected -->
+  @if (apartmentTypeForm.get('apartmentType')?.value === 'APT') {
+    <div class="row g-3">
+      <!-- Elevator Yes/No -->
+      <div class="col-12 col-md-6">
+        <label class="fw-bold d-block mb-2">Elevator:</label>
+        <div class="d-flex gap-3">
+          @for (option of aptValues; track option) {
+            <div class="form-check form-check-inline">
+              <input 
+                class="form-check-input" 
+                type="radio" 
+                [id]="option.value" 
+                [value]="option.value"
+                formControlName="elevator"
+              />
+              <label class="form-check-label ms-1" [for]="option.value">
+                {{ option.label }}
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Floor Number Dropdown -->
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <select 
+            class="form-select" 
+            id="floorSelect"
+            formControlName="floorNumber"
+            aria-label="Select Floor Number"
+          >
+            <option disabled selected>Select Floor Number</option>
+            @for (item of floorsList; track item) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+          <label for="floorSelect" class="fw-bold">Select Floor Number</label>
+        </div>
+      </div>
+    </div>
+  }
+</form>

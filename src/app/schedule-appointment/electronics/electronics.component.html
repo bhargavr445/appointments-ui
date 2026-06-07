@@ -1,0 +1,69 @@
+<form [formGroup]="electronicsForm">
+<div class="row">
+    <div class="col-12 col-md-4 mb-3">
+        @let numberOfTvsControl = electronicsForm.get('numberOfTvs');
+        @let numberOfTvsValidity = numberOfTvsControl.touched &&
+        numberOfTvsControl.invalid &&
+        numberOfTvsControl.hasError('required');
+
+        <div class="form-floating">
+            <input 
+                type="number" 
+                class="form-control apt-form-control" 
+                id="numberOfTvs"
+                formControlName="numberOfTvs" 
+                placeholder="Last Name"
+            >
+            <label class="fw-bold" [ngClass]="{ 'invalid-label': numberOfTvsValidity }"
+                for="numberOfTvs">Number Of Furniture Pieces *</label>
+        </div>
+
+        @if (numberOfTvsValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+
+        <div class="col-12 col-md-4 mb-3">
+        @let numberOfMonitorsAndComputersControl = electronicsForm.get('numberOfMonitorsAndComputers');
+        @let numberOfMonitorsAndComputersValidity = numberOfMonitorsAndComputersControl.touched &&
+        numberOfMonitorsAndComputersControl.invalid &&
+        numberOfMonitorsAndComputersControl.hasError('required');
+
+        <div class="form-floating">
+            <input 
+                type="number" 
+                class="form-control apt-form-control" 
+                id="numberOfMonitorsAndComputers"
+                formControlName="numberOfMonitorsAndComputers" 
+                placeholder="Last Name"
+            >
+            <label class="fw-bold" [ngClass]="{ 'invalid-label': numberOfMonitorsAndComputersValidity }"
+                for="numberOfMonitorsAndComputers">Number Of Monitors/Computers *</label>
+        </div>
+
+        @if (numberOfMonitorsAndComputersValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+
+    <div class="col-12 col-md-4 mb-3">
+        @let otherElectronicsControl = electronicsForm.get('otherElectronics');
+        @let otherElectronicsValidity = otherElectronicsControl.touched && otherElectronicsControl.invalid &&
+        otherElectronicsControl.hasError('required');
+        <div>
+            <textarea
+                class="form-control" 
+                placeholder="Ex: sound systems, printers etc"
+                id="otherElectronics" 
+                formControlName="otherElectronics" 
+                rows="2">
+            </textarea>
+            <!-- <label class="fw-bold" [ngClass]="{'invalid-label': otherElectronicsValidity}" for="otherElectronics">Other Electronics
+                *</label> -->
+        </div>
+        @if (otherElectronicsValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+</div>
+</form>

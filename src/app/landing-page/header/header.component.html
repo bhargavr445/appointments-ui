@@ -1,0 +1,77 @@
+<!-- Top Info Bar -->
+     <app-modal [isOpen]="isOpen()" (close)="close($event)">
+      <!-- <h5 header class="modal-title">Modal title</h5> -->
+      <div body>
+        <h5 class="modal-title mb-4 d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap">Choose Your Quote Type</h5>
+        <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap mar-t-b">
+          <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" (click)="navigateToQuote('junk')">
+            JUNK REMOVAl
+          </button>
+          <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" (click)="navigateToQuote('schedule/m')">
+            MOVING
+          </button>
+        </div>
+      </div>
+      <!-- <div footer>
+        <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap mar-t-b">
+                <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13">
+                  JUNK REMOVAl QUOTE
+                </button>
+                <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13">
+                  MOVING QUOTE
+                </button>
+              </div>
+      </div> -->
+    </app-modal>
+<div class="top-info-bar w-100 text-white bg-dark shrink">
+  <div class="container-fluid d-flex justify-content-between align-items-center py-2 flex-wrap">
+
+    <!-- Phone + Call button -->
+    <div class="d-flex align-items-center gap-2">
+      <a [href]="'tel:' + appConstants.phoneNumber"
+         class="text-white text-decoration-none fw-semibold d-flex align-items-center">
+        {{appConstants.phoneNumber}}
+      </a>
+
+      <a class="call_header fw-bold" [href]="'tel:' + appConstants.phoneNumber">☎️ CALL</a>
+    </div>
+
+    <!-- Country -->
+    <div class="d-flex align-items-center gap-1">
+      <span class="fs-6">🇨🇦</span>
+      <span class="fw-semibold">{{appConstants.country}}</span>
+    </div>
+  </div>
+</div>
+
+<nav [class.shrink]="isShrunk()" class="navbar navbar-expand-md navbar-light fixed-top shadow-sm apt-bg shrink transparent-navbar">
+  <div class="container-fluid d-flex justify-content-between align-items-center flex-nowrap">
+    <strong>
+      <a class="navbar-brand apt-txt-color test-clip" routerLink="/">{{appConstants.HAUL_MOVE}}</a>
+    </strong>
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-warning text-uppercase fw-bold quote-btn" (click)="navigateTo()">
+        Free Quote
+      </button>
+      <button (click)="onMenuOpen()"
+        class="navbar-toggler btn btn-outline-dark d-md-none d-flex flex-column align-items-center menu-toggle-btn"
+        type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      </div>
+      </div>
+      <!-- @if (isOpen()) { -->
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto px-3">
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/home"   [routerLinkActiveOptions]="{ exact: true }">Home</a></li> -->
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/services">Services</a></li> -->
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/faq">FAQ</a></li>
+          <!-- <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/contact">Contact</a></li> -->
+          <li class="nav-item"><a class="nav-link apt-txt-color" routerLinkActive="active" routerLink="/admin">Admin</a></li>
+        </ul>
+      </div>
+  <!-- } -->
+
+</nav>
+

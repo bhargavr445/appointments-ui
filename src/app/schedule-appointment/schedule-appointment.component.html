@@ -1,95 +1,40 @@
-<div class="card card-shadow">
-  <div class="card-header">
+<div class="info_container">
+
+<div class="">
+  <div class="">
     <h4 class="test-clip">
       Schedule Appointmment
     </h4>
   </div>
-  <div class="card-body">
+  <div>
     @if (scheduleAppointmentError()) {
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{scheduleAppointmentError()}}</strong>
-        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>{{scheduleAppointmentError()}}</strong>
+      <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     }
+
     <div class="container mt-4">
       <form [formGroup]="appointmentForm">
         <div class="row">
-          <!-- First Name -->
 
-          <div class="col-12 col-md-6 mb-3">
-            @let firstNameControl = appointmentForm.get('firstName');
-            @let firstNameValidity = firstNameControl.touched && firstNameControl.invalid &&
-            firstNameControl.hasError('required');
 
-            <div class="form-floating">
-              <input type="text" class="form-control apt-form-control" id="firstName" formControlName="firstName"
-                placeholder="First Name">
-              <label [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName">First Name *</label>
-            </div>
 
-            @if (firstNameValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
+          <!-- <div class="row mb-4"> -->
+            <!-- Moving From -->
 
-          <!-- Last Name -->
-          <div class="col-12 col-md-6 mb-3">
-            @let lastNameControl = appointmentForm.get('lastName');
-            @let lastNameValidity = lastNameControl.touched && lastNameControl.invalid &&
-            lastNameControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="text" class="form-control apt-form-control" id="lastName" formControlName="lastName" placeholder="Last Name">
-              <label [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
-            </div>
-
-            @if (lastNameValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Email -->
-          <div class="col-12 col-md-6 mb-3">
-            @let emailControl = appointmentForm.get('email');
-            @let emailValidity = emailControl.touched && emailControl.invalid && emailControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="email" class="form-control apt-form-control" id="email" formControlName="email" placeholder="Email">
-              <label [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
-            </div>
-
-            @if (emailValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Phone Number -->
-          <div class="col-12 col-md-6 mb-3">
-            @let phoneControl = appointmentForm.get('phoneNumber');
-            @let phoneValidity = phoneControl.touched && phoneControl.invalid && phoneControl.hasError('required');
-
-            <div class="form-floating">
-              <input type="tel" class="form-control apt-form-control" id="phone" formControlName="phoneNumber" placeholder="Phone">
-              <label [ngClass]="{ 'invalid-label': phoneValidity }" for="phone">Phone *</label>
-            </div>
-
-            @if (phoneValidity) {
-            <div class="apt-validation">This is a required field</div>
-            }
-          </div>
-
-          <!-- Appointment Group: Date -->
-          <div formGroupName="appointment" class="row">
-            <div class="col-12 col-md-6 mb-3">
+             <!-- Appointment Group: Date -->
+          <div formGroupName="appointment">
+            <div class="col-12 col-md-4 mb-3">
               @let dateControl = appointmentForm.get('appointment.date');
               @let dateValidity = dateControl.touched && dateControl.invalid && dateControl.hasError('required');
-              <div class="form-floating">
+              <div class="form-floating ">
 
                 <input (keydown)="preventTyping($event)" [min]="minDate" type="date" class="form-control apt-form-control" id="date"
                   formControlName="date">
-                <label [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
+                <label class="fw-bold" [ngClass]="{'invalid-label': dateValidity}" for="date">Appointment Date
                   *</label>
               </div>
               @if (dateValidity) {
@@ -100,34 +45,182 @@
             <!-- Appointment Group: Time -->
             <div class="col-12 col-md-12 mb-3">
 
-              @let timeControl = appointmentForm.get('appointment.time');
+              <!-- <input type="file" accept="image/*" capture="environment"> -->
+
+              <!-- @let timeControl = appointmentForm.get('appointment.time');
               @let timeControlValidity = timeControl.touched && timeControl.invalid && timeControl.hasError('required');
               <label [ngClass]="{'invalid-label': timeControlValidity}" for="time" class="form-label test-clip">Appointment Time
                 *</label>
               @if (timeControlValidity) {
               <div class="apt-validation">This is a required field</div>
               }
-              <app-time-picker [bookedSlots]="engagedSlotsList()" (selectedTimeEmitter)="selectedTime($event)"
-                (touchedEmitter)="touchedEvent()" />
+              @if(engagedSlotsListIsLoading()) {
+                <div class="row g-3 mt-4">
+                  @for (item of [1,2,3,4]; track $index) {
+                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                      <div class="skeleton-slot"></div>
+                    </div>
+                  }
+                </div>
+              } @else {
+              <app-time-picker 
+                [selectedDate]="appointmentForm.get('appointment').get('date').value"
+                [bookedSlots]="engagedSlotsList()" 
+                (selectedTimeEmitter)="selectedTime($event)"
+                (touchedEmitter)="touchedEvent()" 
+                />
+              } -->
             </div>
           </div>
-          <!-- Message (optional field not defined in form group) -->
-          <!-- <div class="col-12 mb-3">
+
+                      <!-- Service Type -->
+          <div class="col-12 col-md-4 mb-3">
+            @let serviceTypeControl = appointmentForm.get('serviceType');
+            @let serviceTypeValidity = serviceTypeControl.touched && serviceTypeControl.invalid && serviceTypeControl.hasError('required');
+
+            <div class="form-floating">
+              <select 
+                class="form-select" 
+                id="floatingSelect"
+                formControlName="serviceType"
+                (change)="onServiceTypeChange($event)"
+                aria-label="Floating label select example">
+                @for (item of derivedServicesList(); track item.key) {
+                  <option [value]="item.key">{{item.value}}</option>
+                }
+              </select>
+              <label class="fw-bold" for="floatingSelect">Select Service Type</label>
+            </div>
+
+            @if (serviceTypeValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+          @if (appointmentForm.contains('packingHelp')) {
+          <div class="col-12 col-md-4 mb-3">
+            <packing [packingHelp]="appointmentForm.get('packingHelp')" />
+          </div>
+          }
+
+          @if (appointmentForm.contains('movingFrom')) {
+          <div class="col-12 col-md-6 mb-3">
+            <div class="border rounded p-3 h-100 bg-white shadow-sm">
+              <label class="fw-bold d-block mb-2">Moving From</label>
+              <apartment-type [apartmentTypeForm]="appointmentForm.get('movingFrom')" />
+            </div>
+          </div>
+          }
+
+          <!-- Moving To -->
+          @if (appointmentForm.contains('movingTo')) {
+          <div class="col-12 col-md-6 mb-3">
+            <div class="border rounded p-3 h-100 bg-white shadow-sm">
+              <label class="fw-bold d-block mb-2">Moving To</label>
+              <apartment-type [apartmentTypeForm]="appointmentForm.get('movingTo')" />
+            </div>
+          </div>
+          }
+          <!-- </div> -->
+
+          <!-- First Name -->
+
+          <div class="col-12 col-md-4 mb-3">
+            @let currentAddressControl = appointmentForm.get('currentAddress');
+            @let currentAddressValidity = currentAddressControl.touched && currentAddressControl.invalid &&
+            currentAddressControl.hasError('required');
+
+            <div class="form-floating">
+              <input 
+                type="text" 
+                class="form-control apt-form-control" 
+                id="currentAddress" 
+                formControlName="currentAddress"
+                placeholder="First Name">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': currentAddressValidity }" for="currentAddress" class="fw-bold">Current Address *</label>
+            </div>
+
+            @if (currentAddressValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+          @if (appointmentForm.contains('newAddress')) {
+          <div class="col-12 col-md-4 mb-3">
+            @let newAddressControl = appointmentForm.get('newAddress');
+            @let newAddressValidity = newAddressControl.touched && newAddressControl.invalid &&
+            newAddressControl.hasError('required');
+
+            <div class="form-floating">
+              <input 
+                type="text" 
+                class="form-control apt-form-control" 
+                id="newAddress" 
+                formControlName="newAddress"
+                placeholder="First Name">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': newAddressValidity }" for="newAddress" class="fw-bold">New Address *</label>
+            </div>
+
+            @if (newAddressValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+          }
+
+                    <!-- Notes -->
+          <div class="col-12 col-md-4 mb-3">
             @let messageControl = appointmentForm.get('note');
             @let messageValidity = messageControl.touched && messageControl.invalid &&
             messageControl.hasError('required');
-            <label [ngClass]="{'invalid-label': messageValidity}" for="note" class="form-label">Notes *</label>
-            <textarea class="form-control" id="note" formControlName="note" rows="3"></textarea>
+            <div class="form-floating">
+              <textarea class="form-control" id="note" formControlName="note" rows="1"></textarea>
+              <label class="fw-bold" [ngClass]="{'invalid-label': messageValidity}" for="note">Notes</label>
+            </div>
             @if (messageValidity) {
             <div class="apt-validation">This is a required field</div>
             }
-          </div> -->
+          </div>
+          @if (appointmentForm.contains('contactInfo')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Contact Info:</label>
+            <contact-info [contactInfoForm]="appointmentForm.get('contactInfo')" />
+          </div>
+          }
 
+          @if (appointmentForm.contains('furniture')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Furniture:</label>
+            <furniture [furnitureForm]="appointmentForm.get('furniture')" />
+          </div>
+          }
+          @if (appointmentForm.contains('appliances')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Appliances:</label>
+            <appliances [appliancesForm]="appointmentForm.get('appliances')" />
+          </div>
+          }
+          @if (appointmentForm.contains('electronics')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Electronics:</label>
+            <electronics [electronicsForm]="appointmentForm.get('electronics')" />
+          </div>
+          }
+          @if (appointmentForm.contains('boxes')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Boxes:</label>
+            <boxes [boxesForm]="appointmentForm.get('boxes')" />
+          </div>
+          }
+          @if (appointmentForm.contains('specialItems')) {
+          <div class="border rounded p-3 h-100 bg-white shadow-sm mb-3">
+            <label class="fw-bold d-block mb-2">Special Items:</label>
+            <special-items [specialItemsForm]="appointmentForm.get('specialItems')" />
+          </div>
+          }
 
           <!-- Submit Button -->
           <div class="col-12 text-end">
             <button class="btn btn-primary rounded-pill px-4 shadow-sm"
-              (click)="scheduleAppointment()"> {{ scheduleApointmentApiProgress() ? 'Scheduling...' : 'Schedule'}}</button>
+              (click)="scheduleAppointment()"> {{ scheduleApointmentApiProgress() ? 'Scheduling...' : 'Schedule'}}
+            </button>
             <button class="btn btn-outline-warning rounded-pill px-4 ms-2">Cancel</button>
           </div>
 
@@ -135,4 +228,5 @@
       </form>
     </div>
   </div>
+</div>
 </div>

@@ -1,0 +1,46 @@
+<form [formGroup]="furnitureForm">
+<div class="row">
+    <div class="col-12 col-md-4 mb-3">
+        @let numberOfFurniturePiecesControl = furnitureForm.get('numberOfFurniturePieces');
+        @let numberOfFurniturePiecesValidity = numberOfFurniturePiecesControl.touched &&
+        numberOfFurniturePiecesControl.invalid &&
+        numberOfFurniturePiecesControl.hasError('required');
+
+        <div class="form-floating">
+            <input 
+                type="number" 
+                class="form-control apt-form-control" 
+                id="numberOfFurniturePieces"
+                formControlName="numberOfFurniturePieces" 
+                placeholder="Last Name"
+            >
+            <label class="fw-bold" [ngClass]="{ 'invalid-label': numberOfFurniturePiecesValidity }"
+                for="numberOfFurniturePieces">Number Of Furniture Pieces *</label>
+        </div>
+
+        @if (numberOfFurniturePiecesValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+
+    <div class="col-12 col-md-4 mb-3">
+        @let listOfLargeItemsControl = furnitureForm.get('listOfLargeItems');
+        @let listOfLargeItemsValidity = listOfLargeItemsControl.touched && listOfLargeItemsControl.invalid &&
+        listOfLargeItemsControl.hasError('required');
+        <div>
+            <textarea
+                class="form-control" 
+                id="listOfLargeItems" 
+                formControlName="listOfLargeItems" 
+                placeholder="Ex: Bed, Couch, Wardrobe etc"
+                rows="2">
+            </textarea>
+            <!-- <label class="fw-bold" [ngClass]="{'invalid-label': listOfLargeItemsValidity}" for="listOfLargeItems">List Of Large Items
+                *</label> -->
+        </div>
+        @if (listOfLargeItemsValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+</div>
+</form>

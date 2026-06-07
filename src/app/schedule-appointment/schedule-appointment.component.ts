@@ -1,33 +1,78 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, input as RouteInput, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { addDays, format } from 'date-fns';
-import { map } from 'rxjs';
-import { TimePickerComponent } from "../commons/components/time-picker/time-picker.component";
-import { dateFormatter, ISODateFormatter } from '../commons/constants/app.constants';
+import { map, Subject, takeUntil } from 'rxjs';
+import { dateFormatter, ISODateFormatter, metaData } from '../commons/constants/app.constants';
+import { ServiceTypeList } from '../commons/data/reference-data';
+import * as I from '../commons/interfaces/AppointmentDetailsI';
 import { AppointmentApiService } from '../commons/services/appointment-api.service';
+import { ApartmentTypeComponent } from "./apartment-type/apartment-type.component";
+import { AppliancesComponent } from './appliances/appliances.component';
+import { BoxesComponent } from "./boxes/boxes.component";
+import { ContactInfoComponent } from "./contact-info/contact-info.component";
+import { ElectronicsComponent } from "./electronics/electronics.component";
+import { FurnitureComponent } from './furniture/furniture.component';
+import { PackingComponent } from "./packing/packing.component";
+import { SpecialItemsComponent } from "./special-items/special-items.component";
 
 @Component({
-  selector: 'app-schedule-appointment',
-  imports: [FormsModule, ReactiveFormsModule, TimePickerComponent, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'schedule-appointment',
+  imports: [
+    FormsModule, ReactiveFormsModule, FurnitureComponent, AppliancesComponent,
+    NgClass, ApartmentTypeComponent, ElectronicsComponent,
+    BoxesComponent, SpecialItemsComponent, PackingComponent, ContactInfoComponent
+  ],
   templateUrl: './schedule-appointment.component.html',
-  styleUrl: './schedule-appointment.component.scss',
   providers: [AppointmentApiService]
 })
-export class ScheduleAppointmentComponent implements OnInit {
+export class ScheduleAppointmentComponent implements OnInit, OnDestroy {
 
-  appointmentApiService = inject(AppointmentApiService);
-  engagedSlotsList = computed(() => this.appointmentApiService.availableSlotsForSelectedDate.value());
+  #appointmentApiService = inject(AppointmentApiService);
+  #router = inject(Router);
+  appConstants = metaData;
+
+  type = RouteInput.required<AppointmentType>();
+  engagedSlotsList = computed(() => this.#appointmentApiService.availableSlotsForSelectedDate.value());
+  engagedSlotsListIsLoading = computed(() => this.#appointmentApiService.availableSlotsForSelectedDate.isLoading());
   appointmentForm: FormGroup;
-  minDate = format(addDays(new Date(), 0),ISODateFormatter);
+  minDate = format(addDays(new Date(), 0), ISODateFormatter);
   scheduleApointmentApiProgress = signal(false);
   scheduleAppointmentError = signal('');
+  unsubscribe = new Subject();
+  servicesList = ServiceTypeList;
+  derivedServicesList = computed(() => this.deriveList(this.type()));
+  removeControls = [
+    'specialItems',
+    'boxes',
+    'electronics',
+    'appliances',
+    'furniture',
+    'movingFrom',
+    'movingTo',
+    'newAddress',
+    'packingHelp'
+  ];
+
+  deriveList(type: AppointmentType) {
+    return ServiceTypeList.filter(serviceType => serviceType.key === type);
+  }
 
   ngOnInit(): void {
     this.#createForm();
-    this.appointmentForm.get('appointment.date').valueChanges.pipe(map(v => this.#dateFormatter(v))).subscribe((v) => {
-      this.appointmentApiService.selectedDate.set(v)
+    this.appointmentForm.get('appointment.date').valueChanges.pipe(
+      map(v => this.#dateFormatter(v)),
+      takeUntil(this.unsubscribe)
+    ).subscribe((v) => {
+      this.#appointmentApiService.selectedDate.set(v)
     });
+  }
+
+  onServiceTypeChange(event: Event): void {
+    const serviceType = event.target['value'];
+    this.#addControlsBasedOnServiceType(serviceType)
   }
 
   #dateFormatter(dateStr: string): string {
@@ -38,16 +83,104 @@ export class ScheduleAppointmentComponent implements OnInit {
   }
 
   #createForm(): void {
-    this.appointmentForm = new FormGroup({
+    this.appointmentForm = new FormGroup<I.AppointmentScheduleFormI>({
+      contactInfo: this.#contactInfoForm(),
+      serviceType: new FormControl(this.type(), { nonNullable: true, validators: [Validators.required] }),
+      note: new FormControl('', { nonNullable: true }),
+      appointment: this.#appointForm(),
+      currentAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      // newAddress: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    })
+    this.#addControlsBasedOnServiceType(this.type());
+  }
+
+  #setFurniture(): FormGroup<any> {
+    return new FormGroup({
+      numberOfFurniturePieces: new FormControl('', { nonNullable: true, validators: [Validators.required] }), // number 
+      listOfLargeItems: new FormControl('', { nonNullable: true })
+    });
+  }
+
+  #setAppliances(): FormGroup<any> {
+    return new FormGroup({
+      numberOfLargeAppliances: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    });
+  }
+
+  #setElectronicsControls(): FormGroup<any> {
+    return new FormGroup({
+      numberOfTvs: new FormControl(null, { nonNullable: true, validators: [Validators.required] }), //number
+      numberOfMonitorsAndComputers: new FormControl('', { nonNullable: true, validators: [Validators.required] }), // number
+      otherElectronics: new FormControl('', { nonNullable: true }),
+    });
+  }
+
+  #addControlsBasedOnServiceType(type: AppointmentType): void {
+    if (type === 'm') {
+      this.#addMovingControls();
+    } else {
+      this.#removeControls();
+    }
+  }
+
+  #removeControls(): void {
+    this.removeControls.forEach(controlName => this.appointmentForm.removeControl(controlName));
+  }
+
+  #addMovingControls(): void {
+    this.appointmentForm.addControl('specialItems', this.#setSpecialItems());
+    this.appointmentForm.addControl('boxes', this.#setBoxes());
+    this.appointmentForm.addControl('electronics', this.#setElectronicsControls());
+    this.appointmentForm.addControl('appliances', this.#setAppliances());
+    this.appointmentForm.addControl('furniture', this.#setFurniture());
+    this.appointmentForm.addControl('movingFrom', this.#movingForm());
+    this.appointmentForm.addControl('movingTo', this.#movingForm());
+    this.appointmentForm.addControl('newAddress', new FormControl('', { nonNullable: true, validators: [Validators.required] }));
+    this.appointmentForm.addControl('packingHelp', new FormControl(true, { nonNullable: true, validators: [Validators.required] }));
+  }
+
+  #setBoxes(): FormGroup<any> {
+    return new FormGroup({
+      noOfBoxes: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+      containsFragileItems: new FormControl(null,  { nonNullable: true, validators: [Validators.required] })
+    })
+  }
+
+  #setSpecialItems(): FormGroup<any> {
+    return new FormGroup({
+      largeOrHeavyItems: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    })
+  }
+
+  #contactInfoForm(): FormGroup<I.ContactInfoControlsI> {
+    return new FormGroup({
       firstName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       phoneNumber: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      note: new FormControl('', { nonNullable: true}),
-      appointment: new FormGroup({
-        date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
-        time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
-      })
+    })
+  }
+
+  #addressForm() {
+    return new FormGroup({
+      line1: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      line2: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      state: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      city: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      zip: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    })
+  }
+
+  #movingForm(): FormGroup<any> {
+    return new FormGroup<I.ApartmentTypeI>({
+      apartmentType: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    })
+  }
+
+  #appointForm(): FormGroup<any> {
+    return new FormGroup<I.ApointmentSlotI>({
+      date: new FormControl(format(new Date(), ISODateFormatter), { nonNullable: true, validators: [Validators.required] }),
+      // time: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     })
   }
 
@@ -55,16 +188,21 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.appointmentForm.get('appointment.time').setValue(event);
   }
 
+
   scheduleAppointment(): void {
     this.scheduleAppointmentError.set('');
+    console.log(this.appointmentForm.getRawValue());
+    console.log(this.appointmentForm);
+
     if (this.appointmentForm.valid) {
       this.scheduleApointmentApiProgress.set(true);
-      const payload = this.appointmentForm.getRawValue();
+      const payload: I.AppointmentScheduleI = { ...this.appointmentForm.getRawValue(), ...this.appointmentForm.getRawValue().contactInfo };
       payload.appointment.date = this.#dateFormatter(payload.appointment.date);
-      this.appointmentApiService.scheduleAppointment(payload).subscribe({
+      payload.email = payload.email.toLocaleLowerCase();
+      delete payload['contactInfo'];
+      this.#appointmentApiService.scheduleAppointment(payload).subscribe({
         next: (response) => this.#afterSchedulingApointment(response),
-        error: (error) =>  this.#handleError(error) 
-
+        error: (error) => this.#handleError(error)
       })
     } else {
       this.appointmentForm.markAllAsTouched();
@@ -82,9 +220,10 @@ export class ScheduleAppointmentComponent implements OnInit {
   }
 
   #afterSchedulingApointment(_): void {
-    this.appointmentApiService.availableSlotsForSelectedDate.reload();
+    this.#appointmentApiService.availableSlotsForSelectedDate.reload();
     this.appointmentForm.reset();
     this.scheduleApointmentApiProgress.set(false);
+    this.#router.navigate(['confirm']);
   }
 
   touchedEvent(): void {
@@ -101,4 +240,11 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.scheduleAppointmentError.set('');
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe.next(true);
+    this.unsubscribe.complete();
+  }
+
 }
+
+export type AppointmentType = 'j' | 'm';

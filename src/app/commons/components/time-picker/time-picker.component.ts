@@ -1,8 +1,10 @@
-import { Component, input, linkedSignal, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, linkedSignal, output } from '@angular/core';
 import { timeSlots } from '../../constants/app.constants';
+import { format, parseISO, startOfDay, isEqual } from 'date-fns';
 import { NgClass } from '@angular/common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-time-picker',
   imports: [NgClass],
   templateUrl: './time-picker.component.html',
@@ -11,14 +13,32 @@ import { NgClass } from '@angular/common';
 export class TimePickerComponent {
 
   slots = timeSlots;
+  selectedDate =  input.required<string>();
   bookedSlots = input.required();
   availableSlots = linkedSignal(() => this.deriveAvailableSlots(this.bookedSlots()));
   selectedTimeEmitter = output();
   touchedEmitter = output();
 
   deriveAvailableSlots(bookedSlots) {
-    const updatedArray = this.slots.map(slot => ({ ...slot, isAvailable: !bookedSlots.includes(String(slot.value)) }));
+    console.log(bookedSlots);
+    
+    const updatedArray = this.slots.map(slot => ({ 
+      ...slot, 
+      isAvailable: !bookedSlots.includes(String(slot.value)) && this.#checkIfTimeIsPast(slot)
+    }));
     return updatedArray;
+  }
+
+  #checkIfTimeIsPast(slot) {
+    const parsedSelectedDate = startOfDay(parseISO(this.selectedDate()));
+    const todaysDate = startOfDay(new Date());
+    const hour = format(new Date(), 'HH');
+    // if selected date and todays date is equal then check for time. 
+    if (isEqual(todaysDate, parsedSelectedDate)) {
+      return hour < slot.fullHours;
+    } else {
+      return true
+    }
   }
 
   selectSlot(item) {

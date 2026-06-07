@@ -1,0 +1,172 @@
+@for (item of userDetailsList(); track item._id) {
+<div class="card card-shadow shadow-sm mb-3 mt-3 card-expand">
+
+  <div class="card-header bg-light">
+  <div class="d-flex justify-content-between align-items-start flex-wrap">
+
+    <!-- Left side: Name + email -->
+    <div>
+      <h6 class="mb-0">{{ $safeNavigationMigration(item?.firstName) | titlecase }} {{ $safeNavigationMigration(item?.lastName) | titlecase }}</h6>
+      <small class="text-muted">{{ item?.email }} | {{ item?.phoneNumber }}</small>
+    </div>
+
+    <!-- Right side: Service type -->
+    <div class="mar-t-12">
+      @let derivedService = `${item?.serviceType === 'j' ? 'Junk': 'Moving' }`;
+      <!-- Full text - visible only on desktop -->
+      <span  [class]="`${derivedService} cat d-none d-sm-inline`">{{derivedService}}</span>
+
+      <!-- Short text - visible only on mobile -->
+      <span [class]="`${derivedService} cat d-inline d-sm-none`">{{$safeNavigationMigration(item?.serviceType) | uppercase}}</span>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Body -->
+  <div class="card-body border">
+    <!-- Date and Time -->
+    <div class="row mb-2">
+      <div class="col-12 col-md-6">
+        <strong>Date:</strong> {{ item?.appointmentDate }}
+      </div>
+      <div class="col-12 col-md-6">
+        <strong>Time:</strong> <app-schedule-timer [time]="$safeNavigationMigration(item?.appointmentTime)" />
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="row mb-2">
+      <div class="col-12">
+        <strong>Status:</strong>
+        <span class="badge bg-success text-capitalize">{{ item.status }}</span>
+      </div>
+    </div>
+
+    <!-- Service Type -->
+    <!-- <div class="row mb-2">
+      @let derivedService = `${item?.serviceType === 'j' ? 'Junk': 'Moving' }`;
+      <div class="col-12">
+        <strong>Service Type:</strong>
+        <span [class]="`${derivedService} cat`">{{ derivedService }}</span>
+      </div>
+    </div> -->
+
+    <!-- Notes -->
+    <div class="row mb-2">
+      <div class="col-12">
+        <strong>Notes:</strong>
+        <p class="mb-0">{{ item?.note ?? 'N/A' }}</p>
+      </div>
+    </div>
+
+    <!-- Moving From & To -->
+     @if (item?.movingFrom || item?.movingTo) {
+    <div class="row mb-2">
+      @if (item?.movingFrom) {
+      <div class="col-12 col-md-6 border-bottom">
+        <strong>Moving From:</strong>
+        <div>
+          {{ item.movingFrom?.apartmentType }} 
+          @if (item.movingFrom?.elevator) {
+              <span >| Elevator: Yes</span>
+          }
+          @if (!item.movingFrom?.elevator) {
+              <span>| Elevator: No</span>
+          }
+          @if ($safeNavigationMigration(item.movingFrom?.floorNumber) !== undefined) {
+              <span>| Floor: {{ item.movingFrom?.floorNumber }}</span>
+          }
+        </div>
+      </div>
+      }
+      @if (item?.movingTo) {
+
+      <div class="col-12 col-md-6 border-bottom">
+        <strong>Moving To:</strong>
+        <!-- <div>{{ item.movingTo?.apartmentType }}</div> -->
+        <div>
+          {{ item.movingTo?.apartmentType }} 
+          @if (item.movingTo?.elevator) {
+              <span >| Elevator: Yes</span>
+          }
+          @if (!item.movingTo?.elevator) {
+              <span>| Elevator: No</span>
+          }
+          @if ($safeNavigationMigration(item.movingTo?.floorNumber) !== undefined) {
+              <span>| Floor: {{ item.movingTo?.floorNumber }}</span>
+          }
+        </div>
+      </div>
+    }
+    </div>
+  }
+
+    <!-- Addresses -->
+     
+    <div class="row mb-2 border-bottom">
+      @if(item?.currentAddress){
+      <div class="col-12 col-md-6">
+        <strong>Current Address:</strong>
+        <div>{{ item?.currentAddress }}</div>
+      </div>
+      }
+      @if(item?.newAddress){
+      <div class="col-12 col-md-6">
+        <strong>New Address:</strong>
+        <div>{{ item?.newAddress }}</div>
+      </div>
+      }
+    </div>
+
+
+    <!-- Furniture & Appliances -->
+    @if (item?.furniture) {
+    <div class="row mb-2 border-bottom">
+      <div class="col-12 col-md-6">
+        <strong>Furniture:</strong>
+        <div>Total Pieces: {{ item.furniture?.numberOfFurniturePieces }}</div>
+        <div>Large Items: {{ item.furniture?.listOfLargeItems }}</div>
+      </div>
+      <div class="col-12 col-md-6">
+        <strong>Appliances:</strong>
+        <div>Large Appliances: {{ item.appliances?.numberOfLargeAppliances }}</div>
+      </div>
+    </div>
+    }
+    <!-- Boxes & Special Items -->
+    @if (item?.boxes) {
+    <div class="row mb-2 border-bottom">
+      <div class="col-12 col-md-6">
+        <strong>Boxes:</strong>
+        <div>Number of Boxes: {{ item.boxes?.noOfBoxes }}</div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div>Contains Fragile Items: {{ item.boxes?.containsFragileItems }}</div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div>Fragile Items Desc: {{ item.boxes?.fragileItemsDesc }}</div>
+      </div>
+    </div>
+    }
+
+    <!-- Electronics -->
+     @if (item?.electronics) {
+    <div class="row mb-2">
+      <div class="col-12 col-md-6 border-bottom">
+        <strong>Electronics:</strong>
+        <div>
+          Monitors/Computers: {{ item.electronics?.numberOfMonitorsAndComputers }} |
+          TVs: {{ item.electronics?.numberOfTvs }} |
+          Others: {{ item.electronics?.otherElectronics }}
+        </div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom">
+        <strong>Packing Help:</strong>
+        <div>{{ item?.packingHelp ? 'Yes' : 'No' }}</div>
+      </div>
+    </div>
+  }
+  </div>
+</div>
+}

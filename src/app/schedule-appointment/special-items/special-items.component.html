@@ -1,0 +1,27 @@
+<form [formGroup]="specialItemsForm">
+<div class="row">
+    <div class="col-12 col-md-4 mb-3">
+        @let largeOrHeavyItemsControl = specialItemsForm.get('largeOrHeavyItems');
+        @let largeOrHeavyItemsValidity = largeOrHeavyItemsControl.touched &&
+        largeOrHeavyItemsControl.invalid &&
+        largeOrHeavyItemsControl.hasError('required');
+
+        <div class="form-floating">
+            <input 
+                type="number" 
+                class="form-control apt-form-control" 
+                id="largeOrHeavyItems"
+                formControlName="largeOrHeavyItems" 
+                placeholder="ldsjfn kjdnf kjdnf kjwnf"
+            >
+            <label class="fw-bold" [ngClass]="{ 'invalid-label': largeOrHeavyItemsValidity }"
+                for="largeOrHeavyItems">Large or Heavy Items *</label>
+        </div>
+
+        @if (largeOrHeavyItemsValidity) {
+        <div class="apt-validation">This is a required field</div>
+        }
+    </div>
+
+</div>
+</form>

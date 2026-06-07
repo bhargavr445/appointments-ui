@@ -1,0 +1,178 @@
+<!-- <img src="assets/images/landing.png" alt="Moving truck and boxes" class="img-fluid"/> -->
+<section class="">
+  <div class="row align-items-center mar-l-r-0">
+    <div class="col-md-12 mb-md-0 pad-l-r-0">
+      <img src="assets/images/cz.png" alt="Moving truck and boxes"
+        class="img-fluid shadow-sm responsive-image col-md-12" />
+    </div>
+  </div>
+</section>
+
+<div class="container mar-t-b">
+  <div class="row g-4 justify-content-center"> <!-- added justify-content-center -->
+
+    <!-- Column 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <section class="text-white pad-t-b-10 section_main">
+        <div class="text-center">
+          <div style="margin-top: 10px; margin-bottom: 20px;">
+            <h2 class="fw-bold mb-4 test-clip">{{appConstants.bookingInfo}}</h2>
+          </div>
+      
+          <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap mar-t-b">
+            <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/junk">
+              {{appConstants.NEED_JUNK_REMOVED}}
+            </button>
+            <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/schedule/m">
+              {{appConstants.NEED_MOVING_HELP}}
+            </button>
+          </div>
+      
+          <!-- <form class="d-flex flex-nowrap flex-sm-nowrap justify-content-center gap-2 mar-t-b">
+            <input type="text" class="form-control w-auto" placeholder="Enter ZIP code" style="min-width: 200px;" />
+            <button type="submit" class="btn btn-primary px-4">Search</button>
+          </form> -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <section class="pad-t-b-20 pad-10 section_main">
+        <div class="text-center">
+          <div style="margin-top: 10px; margin-bottom: 20px;">
+            <h2 class="fw-bold mb-4 test-clip">{{appConstants.services}}</h2>
+          </div>
+
+          <div class="row justify-content-center g-3">
+            <!-- Junk Removal -->
+            <div class="col-6">
+              <div class="card service-card shadow-sm h-100 text-center">
+                <div class="card-body">
+                  <img src="assets/images/junk.png" alt="Junk Removal" class="service-icon" style="mix-blend-mode: multiply;" />
+                  <h6 class="fw-bold">{{appConstants.Junk_Removal}}</h6>
+                  <p class="text-muted">{{appConstants.Junk_removal_info}}</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-6">
+              <div class="card service-card shadow-sm h-100 text-center">
+                <div class="card-body">
+                  <img src="assets/images/mover.png" alt="Moving Help" class="service-icon" />
+                  <h6 class="fw-bold">{{appConstants.Moving_Help}}</h6>
+                  <p class="text-muted">{{appConstants.Moving_Help_info}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+ 
+
+
+    <!-- Column 3 -->
+    <!-- <div class="col-12 col-md-6 col-lg-4">
+      <section class=" pad-t-b-10 pad-10 section_main">
+        <div class="text-center">
+          <div style="margin-top: 10px; margin-bottom: 20px;">
+            <h2 class="fw-bold mb-4 test-clip">{{appConstants.RELIABLE_MOVING_SERVICES}}</h2>
+          </div>
+          <div class="= justify-content-center g-3 mar-l-r-0">
+            <div>
+              <p class="text-muted info_section">
+                {{appConstants.RELIABLE_MOVING_SERVICES_info}}
+              </p>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1 text-primary">{{appConstants.get_started}}</h2>
+          <button class="btn btn-warning text-uppercase fw-bold quote-btn">
+            Get a Free Quote
+          </button>
+        </div>
+      </section>
+    </div> -->
+
+ </div>
+
+  
+</div>
+
+<!-- <section class=" text-white pad-t-b-20">
+  <div class="text-center">
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+      <h2 class="fw-bold mb-4 test-clip">BOOK JUNK REMOVAL OR<br> MOVING HELP TODAY</h2>
+    </div>
+
+    <div class="d-flex flex-row justify-content-center gap-3 mb-4 flex-wrap">
+      <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/schedule">
+        NEED JUNK REMOVED
+      </button>
+      <button class="btn btn-warning text-uppercase fw-bold quote-btn ft-13" routerLink="/schedule">
+        NEED MOVING HELP
+      </button>
+    </div>
+
+    <form class="d-flex flex-nowrap flex-sm-nowrap justify-content-center gap-2">
+      <input type="text" class="form-control w-auto" placeholder="Enter ZIP code" style="min-width: 200px;" />
+      <button type="submit" class="btn btn-primary px-4">Search</button>
+    </form>
+
+  </div>
+</section>
+
+
+<section class=" pad-t-b-20 pad-10">
+  <div class="text-center">
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+      <h2 class="fw-bold mb-4 test-clip">Services</h2>
+    </div>
+    <div class="row justify-content-center g-3">
+      <div class="col-6 col-md-2 col-sm-6">
+        <div class="card service-card shadow-sm h-100 text-center ">
+          <div class="card-body">
+            <img src="assets/images/junk.png" alt="Junk Removal" class="service-icon" />
+            <h6 class="fw-bold">Junk Removal</h6>
+            <p class="text-muted">
+              Whether you're relocating your home or business.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-2 col-sm-6">
+        <div class="card service-card shadow-sm h-100 text-center ">
+          <div class="card-body">
+            <img src="assets/images/mover.png" alt="Moving Help" class="service-icon" />
+            <h6 class="fw-bold">Moving Help</h6>
+            <p class="text-muted">
+              Whether you're relocating your home or business
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class=" pad-t-b-20">
+  <div class="text-center">
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+      <h2 class="fw-bold mb-4 test-clip">Reliable Moving Services</h2>
+    </div>
+    <div class="row justify-content-center g-3 mar-l-r-0">
+      <div class="col-6 col-md-10 col-sm-6">
+        <p class="text-muted">
+          Whether you're relocating your home or business, M & J Trucks delivers safe and stress-free moving experiences.
+          Our dedicated team ensures your belongings arrive on time and intact.
+        </p>
+      </div>
+    </div>
+    <h2 class="fw-bold mb-1 text-primary">Ready To Get Started ?</h2>
+    <button class="btn btn-warning text-uppercase fw-bold quote-btn" routerLink="/schedule">
+      Get a Free Quote
+    </button>
+  </div>
+</section> -->

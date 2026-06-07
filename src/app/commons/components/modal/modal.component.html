@@ -1,0 +1,28 @@
+<!-- Add `fade` for animation -->
+<div class="modal fade show" tabindex="-1" [ngStyle]="{display: isOpneL() ? 'block': 'none'}" style="z-index: 1055;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+
+
+            <div class="modal-header">
+                <ng-content select="[header]"></ng-content>
+                <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <ng-content select="[body]"></ng-content>
+            </div>
+
+            <div class="modal-footer">
+                <ng-content select="[footer]"></ng-content>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (isOpneL()) {
+<div class="modal-backdrop fade show" style="z-index: 1050;"></div>
+}

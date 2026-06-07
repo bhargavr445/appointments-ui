@@ -1,0 +1,67 @@
+<form [formGroup]="contactInfoForm">
+    <div class="row">
+
+        <div class="col-12 col-md-4 mb-3">
+            @let firstNameControl = contactInfoForm.get('firstName');
+            @let firstNameValidity = firstNameControl.touched && firstNameControl.invalid &&
+            firstNameControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="text" class="form-control apt-form-control" id="firstName" formControlName="firstName"
+                placeholder="First Name">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': firstNameValidity }" for="firstName" class="fw-bold">First Name *</label>
+            </div>
+
+            @if (firstNameValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+                  <!-- Last Name -->
+          <div class="col-12 col-md-4 mb-3">
+            @let lastNameControl = contactInfoForm.get('lastName');
+            @let lastNameValidity = lastNameControl.touched && lastNameControl.invalid &&
+            lastNameControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="text" class="form-control apt-form-control" id="lastName" formControlName="lastName" placeholder="Last Name">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': lastNameValidity }" for="lastName">Last Name *</label>
+            </div>
+
+            @if (lastNameValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Email -->
+          <div class="col-12 col-md-4 mb-3">
+            @let emailControl = contactInfoForm.get('email');
+            @let emailValidity = emailControl.touched && emailControl.invalid && emailControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="email" class="form-control apt-form-control" id="email" formControlName="email" placeholder="Email">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': emailValidity }" for="email">Email address *</label>
+            </div>
+
+            @if (emailValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+
+          <!-- Phone Number -->
+          <div class="col-12 col-md-4 mb-3">
+            @let phoneControl = contactInfoForm.get('phoneNumber');
+            @let phoneValidity = phoneControl.touched && phoneControl.invalid && phoneControl.hasError('required');
+
+            <div class="form-floating">
+              <input type="tel" class="form-control apt-form-control"
+              (blur)="onPhoneNumber()"
+               minlength="12" maxlength="12" appPhoneNumberMask id="phone" formControlName="phoneNumber" placeholder="Phone">
+              <label class="fw-bold" [ngClass]="{ 'invalid-label': phoneValidity }"  for="phone">Phone *</label>
+            </div>
+
+            @if (phoneValidity) {
+            <div class="apt-validation">This is a required field</div>
+            }
+          </div>
+    </div>
+</form>
