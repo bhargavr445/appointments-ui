@@ -1,12 +1,12 @@
 import { ApplicationConfig  } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withDebugTracing, withHashLocation, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { appInterceptor } from './app.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withHashLocation(), withComponentInputBinding(), withInMemoryScrolling({scrollPositionRestoration: 'enabled'})),
-    provideHttpClient(withInterceptors([appInterceptor]))
+    provideHttpClient(withXhr(), withInterceptors([appInterceptor]))
   ]
 };

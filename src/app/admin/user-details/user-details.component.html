@@ -6,7 +6,7 @@
 
     <!-- Left side: Name + email -->
     <div>
-      <h6 class="mb-0">{{ item?.firstName | titlecase }} {{ item?.lastName | titlecase }}</h6>
+      <h6 class="mb-0">{{ $safeNavigationMigration(item?.firstName) | titlecase }} {{ $safeNavigationMigration(item?.lastName) | titlecase }}</h6>
       <small class="text-muted">{{ item?.email }} | {{ item?.phoneNumber }}</small>
     </div>
 
@@ -17,7 +17,7 @@
       <span  [class]="`${derivedService} cat d-none d-sm-inline`">{{derivedService}}</span>
 
       <!-- Short text - visible only on mobile -->
-      <span [class]="`${derivedService} cat d-inline d-sm-none`">{{item?.serviceType | uppercase}}</span>
+      <span [class]="`${derivedService} cat d-inline d-sm-none`">{{$safeNavigationMigration(item?.serviceType) | uppercase}}</span>
     </div>
 
   </div>
@@ -31,7 +31,7 @@
         <strong>Date:</strong> {{ item?.appointmentDate }}
       </div>
       <div class="col-12 col-md-6">
-        <strong>Time:</strong> <app-schedule-timer [time]="item?.appointmentTime" />
+        <strong>Time:</strong> <app-schedule-timer [time]="$safeNavigationMigration(item?.appointmentTime)" />
       </div>
     </div>
 
@@ -74,7 +74,7 @@
           @if (!item.movingFrom?.elevator) {
               <span>| Elevator: No</span>
           }
-          @if (item.movingFrom?.floorNumber !== undefined) {
+          @if ($safeNavigationMigration(item.movingFrom?.floorNumber) !== undefined) {
               <span>| Floor: {{ item.movingFrom?.floorNumber }}</span>
           }
         </div>
@@ -93,7 +93,7 @@
           @if (!item.movingTo?.elevator) {
               <span>| Elevator: No</span>
           }
-          @if (item.movingTo?.floorNumber !== undefined) {
+          @if ($safeNavigationMigration(item.movingTo?.floorNumber) !== undefined) {
               <span>| Floor: {{ item.movingTo?.floorNumber }}</span>
           }
         </div>
